@@ -1,23 +1,24 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+require 'digest/md5'
 
-survey = Survey.create!(survey_token: 'aaa', is_public: true, title: 'survey1', description: 'desc')
+survey = Survey.create!(is_public: true, title: 'survey1', description: 'desc')
+survey.update!(survey_token: Digest::MD5.hexdigest("#{Time.zone.now.to_i}-#{survey.title}"))
 
 Survey.transaction do
-  survey.questions.create!(survey_id: survey.id, title: 'question1')
-  survey.questions.create!(survey_id: survey.id, title: 'question2')
-  survey.questions.create!(survey_id: survey.id, title: 'question3')
+  survey.questions.create!(survey_id: survey.id, is_required: true, title: 'question1', note: 'note1')
+  survey.questions.create!(survey_id: survey.id, is_required: true, title: 'question2', note: 'note2')
+  survey.questions.create!(survey_id: survey.id, is_required: false, title: 'question3', note: 'note3')
+  survey.questions.create!(survey_id: survey.id, is_required: false, title: 'question4', note: 'note4')
+  survey.questions.create!(survey_id: survey.id, is_required: false, title: 'question5', note: 'note5')
+  survey.questions.create!(survey_id: survey.id, is_required: false, title: 'question6', note: 'note6')
+  survey.questions.create!(survey_id: survey.id, is_required: false, title: 'question7', note: 'note7')
 end
 
-SurveyResponse.transaction do
-  survey_response = SurveyResponse.create(survey_id: survey.id)
+200.times do |n|
+  SurveyResponse.transaction do
+    survey_response = SurveyResponse.create(survey_id: survey.id, created_at: Time.zone.now - (200 - n).minutes)
 
-  survey_response.answers.create(message: 'answer1')
-  survey_response.answers.create(message: 'answer2')
-  survey_response.answers.create(message: 'answer3')
+    survey.questions.size.times do |i|
+      survey_response.answers.create(message: "answer#{i + 1}")
+    end
+  end
 end

@@ -1,15 +1,24 @@
-<div class="container mb-5">
-  <%= @survey.title %>
+<div class="container my-5">
+  <h1 class="my-5"><%= @survey.title %></h1>
 
-  <table class="table">
+  <div class="my-5">
+    <%= t('.7days', days: @days, limit: @limit) %>
+    <%= t('.download_html', url: form_download_path) %>
+  </div>
+
+  <table class="table table-bordered table-sm my-5">
     <tr>
+      <td></td>
+      <td><%= t('.time') %></td>
       <% @survey.questions.each do |question| %>
-        <td><%= question.title %></td>
+        <td class="fw-bold"><%= question.title %></td>
       <% end %>
     </tr>
 
-    <% @survey.survey_responses.limit(10).each do |survey_response| %>
+    <% @survey_responses.each.with_index do |survey_response, i| %>
       <tr>
+        <td class="text-nowrap"><%= i + 1 %></td>
+        <td class="text-nowrap"><%= survey_response.created_at.to_s(:db) %></td>
         <% survey_response.answers.each do |answer| %>
           <td><%= answer.message %></td>
         <% end %>

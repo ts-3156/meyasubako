@@ -1,19 +1,26 @@
-<div class="container mb-5">
+<div class="container my-5">
   <% if notice %>
-    <p style="color: green"><%= notice %></p>
+    <p class="text-success my-5"><%= notice %></p>
   <% end %>
 
-  <%= @survey.title %>
+  <h1 class="my-5"><%= @survey.title %></h1>
 
   <%= form_tag survey_responses_path(survey_token: @survey.survey_token), method: :post do %>
     <% @survey.questions.each do |question| %>
       <div class="my-5">
-        <label for="<%= "question-#{question.id}" %>" class="form-label"><%= question.title %></label>
-        <textarea id="<%= "question-#{question.id}" %>" name="answers[]" class="form-control" rows="10"></textarea>
-        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        <label for="<%= "question-#{question.id}" %>" class="form-label">
+          <%= question.title %>
+          <% if question.is_required %>
+            <span class="text-danger">*</span>
+          <% end %>
+        </label>
+        <textarea id="<%= "question-#{question.id}" %>" name="answers[]" class="form-control" rows="10" <%= 'required' if question.is_required %>></textarea>
+        <% if question.note %>
+          <div class="form-text"><%= question.note %></div>
+        <% end %>
       </div>
     <% end %>
 
-    <%= submit_tag 'Submit' %>
+    <%= submit_tag t('.submit'), class: 'btn btn-outline-secondary' %>
   <% end %>
 </div>

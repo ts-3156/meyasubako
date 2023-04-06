@@ -1,5 +1,15 @@
 ---
 ja:
+  survey_responses:
+    create:
+      thanks: 'ご回答ありがとうございました。'
+  forms:
+    edit:
+      submit: '送信する'
+    responses:
+      7days: '直近の %{days}日間 の最新 %{limit}件 を表示しています。'
+      download_html: '全データを見るには <a href="%{url}">ダウンロード</a> してください。'
+      time: '時刻'
   activerecord:
     errors:
       messages:
