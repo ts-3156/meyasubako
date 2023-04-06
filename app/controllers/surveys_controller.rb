@@ -13,7 +13,7 @@ class SurveysController < ApplicationController
 
   # GET /surveys/new
   def new
-    @survey = Survey.new
+    @survey = Survey.new(is_public: false)
   end
 
   # GET /surveys/1/edit
@@ -23,9 +23,12 @@ class SurveysController < ApplicationController
   # POST /surveys
   def create
     @survey = Survey.new(survey_params)
+    params[:questions].select { |q| q[:title].present? }.each do |question|
+      @survey.questions.build(title: question[:title])
+    end
 
     if @survey.save
-      redirect_to @survey, notice: "Survey was successfully created."
+      redirect_to surveys_path
     else
       render :new, status: :unprocessable_entity
     end
@@ -47,13 +50,14 @@ class SurveysController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_survey
-      @survey = Survey.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def survey_params
-      params.fetch(:survey, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_survey
+    @survey = Survey.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def survey_params
+    params.require(:survey).permit(:title, :description, :is_public)
+  end
 end

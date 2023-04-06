@@ -1,9 +1,4 @@
-<h1>New survey</h1>
-
-<%= render "form", survey: @survey %>
-
-<br>
-
-<div>
-  <%= link_to "Back to surveys", surveys_path %>
+<div class="container my-5">
+  <h3 class="my-3"><%= t('.new') %></h3>
+  <%= render "form", survey: @survey %>
 </div>

@@ -1,12 +1,51 @@
 <div class="container my-5">
+  <div class="my-3">
+    <%= link_to t('.new'), new_survey_path, class: 'btn btn-primary' %>
+  </div>
+
   <% @surveys.each do |survey| %>
     <div class="my-5">
       <div class="h3"><%= survey.title %></div>
-      <% unless survey.is_public %>
-        <span class="text-danger"><%= t('.is_private') %></span>
-      <% end %>
-      <%= link_to t('.see_questions'), form_path(survey_token: survey.survey_token), class: 'ms-3' %>
-      <%= link_to t('.see_results'), form_responses_path(survey_token: survey.survey_token), class: 'ms-3' %>
+      <div class="d-flex">
+        <div class="me-3"><%= link_to t('.see_questions'), form_path(survey_token: survey.survey_token) %></div>
+        <div class="me-3"><%= link_to t('.see_results'), form_responses_path(survey_token: survey.survey_token) %></div>
+        <div>
+          <div class="form-check form-switch">
+            <input id="<%= "survey_is_public-#{survey.id}" %>" class="survey_is_public form-check-input" type="checkbox" data-id="<%= survey.id %>" <%= 'checked' if survey.is_public %>>
+            <label class="form-check-label" for="<%= "survey_is_public-#{survey.id}" %>">
+              <%= survey.is_public ? t('.is_public') : t('.is_private') %>
+            </label>
+          </div>
+        </div>
+      </div>
     </div>
   <% end %>
 </div>
+
+<script>
+  $(function () {
+    $('.survey_is_public').on('click', function () {
+      var url = '<%= api_surveys_path %>';
+      var labels = {
+        isPublic: '<%= t('.is_public') %>',
+        isPrivate: '<%= t('.is_private') %>'
+      };
+
+      var id = $(this).data('id');
+      var checked = $(this).prop('checked');
+      console.log(id, checked);
+
+      $.post(url, {id: id, is_public: checked}).done(function (res) {
+        console.log(res);
+        var $label = $('label[for="survey_is_public-' + id + '"]')
+        if (checked) {
+          $label.text(labels['isPublic']);
+        } else {
+          $label.text(labels['isPrivate']);
+        }
+      }).fail(function (xhr) {
+        console.error(xhr);
+      });
+    });
+  });
+</script>

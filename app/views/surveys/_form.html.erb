@@ -12,6 +12,41 @@
   <% end %>
 
   <div>
-    <%= form.submit %>
+    <div class="my-5">
+      <label class="form-label"><%= t('.title') %> <span class="text-danger">*</span></label>
+      <%= form.text_field :title, class: 'form-control', required: true %>
+    </div>
+
+    <div class="my-5">
+      <label class="form-label"><%= t('.description') %> <span class="text-danger">*</span></label>
+      <%= form.text_area :description, class: 'form-control', rows: 10, required: true %>
+    </div>
+
+
+    <div class="my-5">
+      <label class="form-label"><%= t('.is_public') %></label>
+      <%= form.select :is_public, options_for_select([[t('.is_public_true'), 'true'], [t('.is_public_false'), 'false']], survey.is_public), {}, class: 'form-select' %>
+    </div>
+
+    <% 10.times do |n| %>
+      <div class="my-5">
+        <label class="form-label">
+          <%= t('.question.title', count: n + 1) %>
+          <% if n == 0 %>
+            <span class="text-danger">*</span>
+          <% end %>
+        </label>
+        <%= text_field_tag 'questions[][title]', '', class: 'form-control', required: n == 0 %>
+        <% if n == 0 %>
+          <div class="form-text"><%= t('.question.title_required_note') %></div>
+        <% else %>
+          <div class="form-text"><%= t('.question.title_note') %></div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="my-5">
+      <%= form.submit t('.submit'), class: 'btn btn-primary' %>
+    </div>
   </div>
 <% end %>

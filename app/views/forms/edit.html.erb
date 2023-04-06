@@ -4,6 +4,7 @@
   <% end %>
 
   <h1 class="my-5"><%= @survey.title %></h1>
+  <div class="my-3"><%= @survey.description_html %></div>
 
   <%= form_tag survey_responses_path(survey_token: @survey.survey_token), method: :post do %>
     <% @survey.questions.each do |question| %>
@@ -21,6 +22,6 @@
       </div>
     <% end %>
 
-    <%= submit_tag t('.submit'), class: 'btn btn-outline-secondary' %>
+    <%= submit_tag t('.submit'), class: 'btn btn-primary' %>
   <% end %>
 </div>

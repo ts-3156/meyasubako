@@ -7,5 +7,9 @@ Rails.application.routes.draw do
   get "login", to: "sessions#new"
   post "sessions", to: "sessions#create"
   get "logout", to: "sessions#destroy"
-  get "surveys", to: "surveys#index"
+  resources :surveys, only: [:index, :new, :create]
+
+  namespace :api, {format: "json"} do
+    post :surveys, to: "surveys#update"
+  end
 end

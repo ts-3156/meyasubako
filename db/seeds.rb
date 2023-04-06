@@ -1,8 +1,7 @@
 require 'digest/md5'
 
 3.times.with_index do |survey_counter|
-  survey = Survey.create!(is_public: survey_counter == 2, title: "survey#{survey_counter + 1}", description: 'desc')
-  survey.update!(survey_token: Digest::MD5.hexdigest("#{Time.zone.now.to_i}-#{survey.title}"))
+  survey = Survey.create!(is_public: survey_counter == 2, title: "survey#{survey_counter + 1}", description: "This is a description.\nHello!")
 
   Survey.transaction do
     survey.questions.create!(survey_id: survey.id, is_required: true, title: 'question1', note: 'note1')
