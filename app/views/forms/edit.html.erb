@@ -1,0 +1,19 @@
+<div class="container mb-5">
+  <% if notice %>
+    <p style="color: green"><%= notice %></p>
+  <% end %>
+
+  <%= @survey.title %>
+
+  <%= form_tag survey_responses_path(survey_token: @survey.survey_token), method: :post do %>
+    <% @survey.questions.each do |question| %>
+      <div class="my-5">
+        <label for="<%= "question-#{question.id}" %>" class="form-label"><%= question.title %></label>
+        <textarea id="<%= "question-#{question.id}" %>" name="answers[]" class="form-control" rows="10"></textarea>
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+      </div>
+    <% end %>
+
+    <%= submit_tag 'Submit' %>
+  <% end %>
+</div>

@@ -1,0 +1,19 @@
+<div class="container mb-5">
+  <%= @survey.title %>
+
+  <table class="table">
+    <tr>
+      <% @survey.questions.each do |question| %>
+        <td><%= question.title %></td>
+      <% end %>
+    </tr>
+
+    <% @survey.survey_responses.limit(10).each do |survey_response| %>
+      <tr>
+        <% survey_response.answers.each do |answer| %>
+          <td><%= answer.message %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+</div>
