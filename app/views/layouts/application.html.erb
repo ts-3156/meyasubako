@@ -14,6 +14,14 @@
   </head>
 
   <body>
+    <% if user_signed_in? %>
+      <div class="container">
+        <div class="text-end my-3">
+          <%= current_user.email %>
+        </div>
+      </div>
+      <hr>
+    <% end %>
     <%= yield %>
   </body>
 </html>

@@ -1,6 +1,8 @@
 require 'csv'
 
 class FormsController < ApplicationController
+  before_action :authenticate_user!, except: :edit
+
   def edit
     @survey = Survey.includes(:questions).find_by_token(params[:survey_token])
   end

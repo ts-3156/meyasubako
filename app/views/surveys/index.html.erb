@@ -1,14 +1,9 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Surveys</h1>
-
-<div id="surveys">
+<div class="container my-5">
   <% @surveys.each do |survey| %>
-    <%= render survey %>
-    <p>
-      <%= link_to "Show this survey", survey %>
-    </p>
+    <div class="my-3">
+      <div><%= survey.title %></div>
+      <%= link_to t('.see_questions'), form_path(survey_token: survey.survey_token) %>
+      <%= link_to t('.see_results'), form_responses_path(survey_token: survey.survey_token), class: 'ms-3' %>
+    </div>
   <% end %>
 </div>
-
-<%= link_to "New survey", new_survey_path %>

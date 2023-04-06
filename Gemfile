@@ -28,5 +28,5 @@ group :development do
   # gem "spring"
 end
 
-
+gem "bcrypt"
 gem "jsbundling-rails", "~> 1.1"

@@ -4,4 +4,8 @@ Rails.application.routes.draw do
   get "forms/:survey_token/responses", to: "forms#responses", as: :form_responses
   get "forms/:survey_token/download", to: "forms#download", as: :form_download
   post "survey_responses", to: "survey_responses#create"
+  get "login", to: "sessions#new"
+  post "sessions", to: "sessions#create"
+  get "logout", to: "sessions#destroy"
+  get "surveys", to: "surveys#index"
 end

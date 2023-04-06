@@ -1,9 +1,10 @@
 class SurveysController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_survey, only: %i[ show edit update destroy ]
 
   # GET /surveys
   def index
-    @surveys = Survey.all
+    @surveys = Survey.order(created_at: :desc).limit(100)
   end
 
   # GET /surveys/1
