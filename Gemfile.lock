@@ -66,6 +66,10 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
+    ahoy_matey (4.2.1)
+      activesupport (>= 5.2)
+      device_detector
+      safely_block (>= 0.2.1)
     bcrypt (3.1.18)
     builder (3.2.4)
     concurrent-ruby (1.2.2)
@@ -74,6 +78,8 @@ GEM
     debug (1.7.2)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
+    device_detector (1.1.0)
+    errbase (0.2.2)
     erubi (1.12.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
@@ -144,6 +150,8 @@ GEM
     rake (13.0.6)
     reline (0.3.3)
       io-console (~> 0.5)
+    safely_block (0.3.0)
+      errbase (>= 0.1.1)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -164,6 +172,7 @@ PLATFORMS
   arm64-darwin-22
 
 DEPENDENCIES
+  ahoy_matey
   bcrypt
   debug
   jsbundling-rails (~> 1.1)
