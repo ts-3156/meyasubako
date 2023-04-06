@@ -12,6 +12,7 @@ ja:
       failed: 'ログインに失敗しました。'
   surveys:
     index:
+      is_private: '募集停止中'
       see_questions: '質問を見る'
       see_results: '回答を見る'
   survey_responses:

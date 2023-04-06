@@ -1,7 +1,7 @@
 require 'digest/md5'
 
 3.times.with_index do |survey_counter|
-  survey = Survey.create!(is_public: true, title: "survey#{survey_counter + 1}", description: 'desc')
+  survey = Survey.create!(is_public: survey_counter == 2, title: "survey#{survey_counter + 1}", description: 'desc')
   survey.update!(survey_token: Digest::MD5.hexdigest("#{Time.zone.now.to_i}-#{survey.title}"))
 
   Survey.transaction do
@@ -25,4 +25,8 @@ require 'digest/md5'
   end
 end
 
-User.create!(email: 'test@example.com', password: 'test')
+puts (email = "#{SecureRandom.hex(12)}@example.com")
+puts (password = SecureRandom.hex(12))
+File.write('login.txt', email + "\n" + password)
+
+User.create!(email: email, password: password)

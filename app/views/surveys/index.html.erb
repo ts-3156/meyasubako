@@ -1,8 +1,11 @@
 <div class="container my-5">
   <% @surveys.each do |survey| %>
-    <div class="my-3">
-      <div><%= survey.title %></div>
-      <%= link_to t('.see_questions'), form_path(survey_token: survey.survey_token) %>
+    <div class="my-5">
+      <div class="h3"><%= survey.title %></div>
+      <% unless survey.is_public %>
+        <span class="text-danger"><%= t('.is_private') %></span>
+      <% end %>
+      <%= link_to t('.see_questions'), form_path(survey_token: survey.survey_token), class: 'ms-3' %>
       <%= link_to t('.see_results'), form_responses_path(survey_token: survey.survey_token), class: 'ms-3' %>
     </div>
   <% end %>
