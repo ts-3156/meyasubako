@@ -10,6 +10,7 @@
     <tr>
       <td></td>
       <td><%= t('.time') %></td>
+      <td><%= t('.ip') %></td>
       <% @survey.questions.each do |question| %>
         <td class="fw-bold"><%= question.title %></td>
       <% end %>
@@ -19,6 +20,7 @@
       <tr>
         <td class="text-nowrap"><%= i + 1 %></td>
         <td class="text-nowrap"><%= survey_response.created_at.to_s(:db) %></td>
+        <td class="text-nowrap"><%= survey_response.ip %></td>
         <% survey_response.answers.each do |answer| %>
           <td><%= answer.message %></td>
         <% end %>

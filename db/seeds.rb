@@ -15,7 +15,7 @@ end
 
 200.times do |n|
   SurveyResponse.transaction do
-    survey_response = SurveyResponse.create(survey_id: survey.id, created_at: Time.zone.now - (200 - n).minutes)
+    survey_response = SurveyResponse.create(survey_id: survey.id, ip: '127.0.0.1', created_at: Time.zone.now - (200 - n).minutes)
 
     survey.questions.size.times do |i|
       survey_response.answers.create(message: "answer#{i + 1}")

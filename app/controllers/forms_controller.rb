@@ -33,9 +33,9 @@ class FormsController < ApplicationController
 
   def generate_csv
     CSV.generate(headers: headers, write_headers: true, force_quotes: true) do |csv|
-      csv << ['', 'Time', @survey.questions.map(&:title)].flatten
+      csv << ['', 'Time', 'IP', @survey.questions.map(&:title)].flatten
       @survey_responses.reverse.each.with_index do |survey_response, i|
-        csv << [i + 1, survey_response.created_at.to_s(:db), survey_response.answers.map(&:message)].flatten
+        csv << [i + 1, survey_response.created_at.to_s(:db), survey_response.ip, survey_response.answers.map(&:message)].flatten
       end
     end
   end
