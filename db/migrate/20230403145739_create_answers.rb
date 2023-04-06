@@ -4,6 +4,9 @@ class CreateAnswers < ActiveRecord::Migration[7.0]
       t.bigint :survey_response_id
       t.text :message
       t.timestamps
+
+      t.index :survey_response_id
+      t.index :created_at
     end
   end
 end

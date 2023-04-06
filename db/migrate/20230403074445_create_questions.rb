@@ -7,6 +7,9 @@ class CreateQuestions < ActiveRecord::Migration[7.0]
       t.string :title
       t.string :note
       t.timestamps
+
+      t.index :survey_id
+      t.index :created_at
     end
   end
 end

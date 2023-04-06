@@ -57,12 +57,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_06_125155) do
     t.text "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_answers_on_created_at"
+    t.index ["survey_response_id"], name: "index_answers_on_survey_response_id"
   end
 
   create_table "blocked_ips", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_blocked_ips_on_created_at"
+    t.index ["ip"], name: "index_blocked_ips_on_ip", unique: true
   end
 
   create_table "comments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -78,6 +82,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_06_125155) do
     t.string "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_questions_on_created_at"
+    t.index ["survey_id"], name: "index_questions_on_survey_id"
   end
 
   create_table "survey_responses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -85,6 +91,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_06_125155) do
     t.string "ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_survey_responses_on_created_at"
+    t.index ["survey_id"], name: "index_survey_responses_on_survey_id"
   end
 
   create_table "surveys", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -94,6 +102,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_06_125155) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_surveys_on_created_at"
     t.index ["survey_token"], name: "index_surveys_on_survey_token", unique: true
   end
 
@@ -102,6 +111,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_06_125155) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_users_on_created_at"
+    t.index ["email"], name: "index_users_on_email"
   end
 
 end

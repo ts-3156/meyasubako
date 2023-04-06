@@ -1,6 +1,8 @@
 <div class="container my-5">
   <% if notice %>
-    <p class="text-success my-5"><%= notice %></p>
+    <div class="alert alert-success my-5" role="alert">
+      <%= notice %>
+    </div>
   <% end %>
 
   <% unless @survey.is_public %>

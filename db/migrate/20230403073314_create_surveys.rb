@@ -8,6 +8,7 @@ class CreateSurveys < ActiveRecord::Migration[7.0]
       t.timestamps
 
       t.index :survey_token, unique: true
+      t.index :created_at
     end
   end
 end
