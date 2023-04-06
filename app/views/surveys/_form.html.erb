@@ -14,34 +14,57 @@
   <div>
     <div class="my-5">
       <label class="form-label"><%= t('.title') %> <span class="text-danger">*</span></label>
-      <%= form.text_field :title, class: 'form-control', required: true %>
+      <%= form.text_field :title, class: 'form-control', value: t('.title_placeholder'), required: true %>
     </div>
 
     <div class="my-5">
       <label class="form-label"><%= t('.description') %> <span class="text-danger">*</span></label>
-      <%= form.text_area :description, class: 'form-control', rows: 10, required: true %>
+      <%= form.text_area :description, class: 'form-control', value: t('.description_placeholder'), rows: 20, required: true %>
+      <div class="form-text"><%= t('.description_note') %></div>
     </div>
 
 
     <div class="my-5">
-      <label class="form-label"><%= t('.is_public') %></label>
-      <%= form.select :is_public, options_for_select([[t('.is_public_true'), 'true'], [t('.is_public_false'), 'false']], survey.is_public), {}, class: 'form-select' %>
+      <div class="d-inline-block" style="min-width: 200px;">
+        <label class="form-label"><%= t('.is_public') %></label>
+        <%= form.select :is_public, options_for_select([[t('.is_public_true'), 'true'], [t('.is_public_false'), 'false']], survey.is_public), {}, class: 'form-select' %>
+      </div>
     </div>
 
     <% 10.times do |n| %>
-      <div class="my-5">
-        <label class="form-label">
-          <%= t('.question.title', count: n + 1) %>
-          <% if n == 0 %>
-            <span class="text-danger">*</span>
-          <% end %>
-        </label>
-        <%= text_field_tag 'questions[][title]', '', class: 'form-control', required: n == 0 %>
-        <% if n == 0 %>
-          <div class="form-text"><%= t('.question.title_required_note') %></div>
-        <% else %>
-          <div class="form-text"><%= t('.question.title_note') %></div>
-        <% end %>
+      <div class="card card-body my-5">
+        <div class="d-flex">
+          <div class="text-nowrap me-3">
+            <label class="col-form-label">
+              <%= t('.question.title', count: n + 1) %>
+              <% if n == 0 %>
+                <span class="text-danger">*</span>
+              <% end %>
+            </label>
+          </div>
+          <div class="w-100">
+            <%= text_field_tag 'questions[][title]', (n == 0 ? t('.question.whats_your_name') : ''), class: 'form-control', required: n == 0 %>
+            <% if n == 0 %>
+              <div class="form-text"><%= t('.question.title_required_note') %></div>
+            <% else %>
+              <div class="form-text"><%= t('.question.title_note') %></div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="form-check mt-3">
+          <%= check_box_tag 'questions[][field_type]', 'multiple', false, {id: "question-#{n}_field_type", class: 'form-check-input'} %>
+          <label class="form-check-label" for="<%= "question-#{n}_field_type" %>">
+            <%= t('.question.field_type_label') %>
+          </label>
+        </div>
+
+        <div class="form-check mt-3">
+          <%= check_box_tag 'questions[][is_required]', true, n == 0, {id: "question-#{n}_is_required", class: 'form-check-input'} %>
+          <label class="form-check-label" for="<%= "question-#{n}_is_required" %>">
+            <%= t('.question.is_required_label') %>
+          </label>
+        </div>
       </div>
     <% end %>
 

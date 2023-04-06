@@ -5,10 +5,11 @@
 
   <% @surveys.each do |survey| %>
     <div class="my-5">
-      <div class="h3"><%= survey.title %></div>
+      <div class="h4"><%= survey.title %></div>
       <div class="d-flex">
         <div class="me-3"><%= link_to t('.see_questions'), form_path(survey_token: survey.survey_token) %></div>
         <div class="me-3"><%= link_to t('.see_results'), form_responses_path(survey_token: survey.survey_token) %></div>
+        <div class="me-3"><%= link_to t('.copy_url'), '#', class: 'btn-copy-url', data: {url: form_url(survey_token: survey.survey_token)} %></div>
         <div>
           <div class="form-check form-switch">
             <input id="<%= "survey_is_public-#{survey.id}" %>" class="survey_is_public form-check-input" type="checkbox" data-id="<%= survey.id %>" <%= 'checked' if survey.is_public %>>
@@ -46,6 +47,25 @@
       }).fail(function (xhr) {
         console.error(xhr);
       });
+    });
+
+    $('.btn-copy-url').on('click', function () {
+      var url = $(this).data('url');
+      var messages = {
+        succeeded: '<%= t('.copy_succeeded') %>',
+        failed: '<%= t('.copy_failed') %>'
+      }
+
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(function () {
+          alert(messages['succeeded']);
+        }).catch(function () {
+          alert(messages['failed']);
+        });
+      } else {
+        document.execCommand("Copy");
+        alert(messages['succeeded']);
+      }
     });
   });
 </script>

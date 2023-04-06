@@ -1,5 +1,5 @@
 <div class="container my-5">
-  <h1 class="my-5"><%= @survey.title %></h1>
+  <h1 class="h3 my-5"><%= @survey.title %></h1>
 
   <div class="my-5">
     <%= t('.7days', days: @days, limit: @limit) %>
@@ -9,17 +9,17 @@
   <table class="table table-bordered table-sm my-5">
     <tr>
       <td></td>
-      <td><%= t('.time') %></td>
-      <td><%= t('.ip') %></td>
+      <td class="text-nowrap"><%= t('.time') %></td>
+      <td class="text-nowrap"><%= t('.ip') %></td>
       <% @survey.questions.each do |question| %>
-        <td class="fw-bold"><%= question.title %></td>
+        <td class="text-nowrap fw-bold"><%= question.title %></td>
       <% end %>
     </tr>
 
     <% @survey_responses.each.with_index do |survey_response, i| %>
       <tr>
         <td class="text-nowrap"><%= i + 1 %></td>
-        <td class="text-nowrap"><%= survey_response.created_at.to_s(:db) %></td>
+        <td class="text-nowrap"><%= survey_response.created_at.to_fs(:db) %></td>
         <td class="text-nowrap"><%= survey_response.ip %></td>
         <% survey_response.answers.each do |answer| %>
           <td><%= answer.message %></td>

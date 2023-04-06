@@ -2,7 +2,7 @@
 ja:
   home:
     index:
-      no_surveys: '募集中の目安箱はありません。'
+      no_surveys: '募集中のおたよりフォームはありません。'
   sessions:
     new:
       email: 'メールアドレス'
@@ -12,23 +12,47 @@ ja:
       failed: 'ログインに失敗しました。'
   surveys:
     index:
-      new: '新規作成'
+      new: 'おたよりフォームを作る'
       is_public: '募集中'
       is_private: '停止中'
       see_questions: '質問を見る'
       see_results: '回答を見る'
+      copy_url: 'URLをコピー'
+      copy_succeeded: 'コピーしました'
+      copy_failed: 'コピーに失敗しました'
     new:
-      new: '新規作成'
+      new: 'おたよりフォームの新規作成'
     form:
       title: 'タイトル'
+      title_placeholder: 'みとらじおたよりフォーム'
       description: '説明'
+      description_placeholder: |
+        にじさんじ公式バーチャルライバーの月ノ美兎がお送りする不定期ラジオ！
+        毎回、本日のゲストをお招きして、月ノ美兎と１対１で対談します！
+
+        【今回のゲスト：xxx】
+
+        ↓↓↓↓↓↓ただいま募集中のコーナー↓↓↓↓↓↓
+
+        ■aaa
+        bbb
+
+        ■ccc
+        ddd
+
+        ※回答は一人一回です
+        ※今回の応募〆切は00月00日00時までです
+      description_note: 'URLは自動でリンクになります。'
       is_public: '募集ステータス'
       is_public_true: '公開'
       is_public_false: '非公開'
       question:
         title: '質問%{count}'
-        title_required_note: 'この質問は必ず入力してください。'
+        whats_your_name: 'みとらじネーム（読みにくい漢字はふりがなを記入）'
+        title_required_note: '1つめの質問は必ず入力してください。'
         title_note: '不要な場合は空欄にしてください。'
+        is_required_label: '必須'
+        field_type_label: '複数行で回答'
       submit: '作成する'
   survey_responses:
     create:
@@ -36,9 +60,11 @@ ja:
   forms:
     edit:
       submit: '回答する'
+      expired: 'このおたよりフォームは終了しました。'
+      expired_note: 'このおたよりフォームは募集停止中です。このページを見られるのは管理者のみです。'
     responses:
       7days: '直近の %{days}日間 の最新 %{limit}件 を表示しています。'
-      download_html: '全データを見るには <a href="%{url}">ダウンロード</a> してください。'
+      download_html: '全データを一度に見るには <a href="%{url}">ダウンロード</a> してください。'
       time: '時刻'
       ip: 'IPアドレス'
   activerecord:
@@ -58,7 +84,7 @@ ja:
     - 金
     - 土
     abbr_month_names:
-    - 
+    -
     - 1月
     - 2月
     - 3月
@@ -84,7 +110,7 @@ ja:
       long: "%Y年%m月%d日(%a)"
       short: "%m/%d"
     month_names:
-    - 
+    -
     - 1月
     - 2月
     - 3月

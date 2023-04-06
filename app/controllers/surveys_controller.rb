@@ -24,7 +24,7 @@ class SurveysController < ApplicationController
   def create
     @survey = Survey.new(survey_params)
     params[:questions].select { |q| q[:title].present? }.each do |question|
-      @survey.questions.build(title: question[:title])
+      @survey.questions.build(title: question[:title], field_type: question[:field_type] == 'multiple' ? 'text_area' : 'text', is_required: question[:is_required])
     end
 
     if @survey.save

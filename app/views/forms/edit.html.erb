@@ -3,19 +3,27 @@
     <p class="text-success my-5"><%= notice %></p>
   <% end %>
 
-  <h1 class="my-5"><%= @survey.title %></h1>
-  <div class="my-3"><%= @survey.description_html %></div>
+  <% unless @survey.is_public %>
+    <p class="text-danger my-5"><%= t('.expired_note') %></p>
+  <% end %>
+
+  <h1 class="h3 my-5"><%= @survey.title %></h1>
+  <div class="card card-body my-3"><%= auto_link(@survey.description_html, link: :urls, html: {target: '_blank'}) %></div>
 
   <%= form_tag survey_responses_path(survey_token: @survey.survey_token), method: :post do %>
     <% @survey.questions.each do |question| %>
-      <div class="my-5">
+      <div class="card card-body my-5">
         <label for="<%= "question-#{question.id}" %>" class="form-label">
           <%= question.title %>
           <% if question.is_required %>
             <span class="text-danger">*</span>
           <% end %>
         </label>
-        <textarea id="<%= "question-#{question.id}" %>" name="answers[]" class="form-control" rows="10" <%= 'required' if question.is_required %>></textarea>
+        <% if question.field_type == 'text' %>
+          <%= text_field_tag 'answers[]', '', id: "question-#{question.id}", class: "form-control", required: question.is_required %>
+        <% else %>
+          <textarea id="<%= "question-#{question.id}" %>" name="answers[]" class="form-control" rows="10" <%= 'required' if question.is_required %>></textarea>
+        <% end %>
         <% if question.note %>
           <div class="form-text"><%= question.note %></div>
         <% end %>

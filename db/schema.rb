@@ -72,6 +72,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_06_125155) do
 
   create_table "questions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "survey_id"
+    t.string "field_type"
     t.boolean "is_required"
     t.string "title"
     t.string "note"
