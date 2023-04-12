@@ -1,0 +1,11 @@
+body {
+    background-color: #f0ebf8;
+}
+
+.table-responses-wrapper {
+    overflow-x: scroll;
+}
+
+.table-responses {
+    font-size: 12px;
+}

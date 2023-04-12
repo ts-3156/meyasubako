@@ -1,9 +1,9 @@
 class HomeController < ApplicationController
   def index
-    if (survey = Survey.order(created_at: :desc).find_by(is_public: true))
-      redirect_to form_path(survey_token: survey.survey_token)
+    if user_signed_in?
+      redirect_to surveys_path
     else
-      render plain: t('.no_surveys')
+      redirect_to forms_path
     end
   end
 end

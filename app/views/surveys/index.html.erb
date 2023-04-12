@@ -4,20 +4,23 @@
   </div>
 
   <% @surveys.each do |survey| %>
-    <div class="my-5">
-      <div class="h4"><%= survey.title %></div>
-      <div class="d-flex">
-        <div class="me-3"><%= link_to t('.see_questions'), form_path(survey_token: survey.survey_token) %></div>
-        <div class="me-3"><%= link_to t('.see_results'), form_responses_path(survey_token: survey.survey_token) %></div>
-        <div class="me-3"><%= link_to t('.copy_url'), '#', class: 'btn-copy-url', data: {url: form_url(survey_token: survey.survey_token)} %></div>
-        <div>
-          <div class="form-check form-switch">
-            <input id="<%= "survey_is_public-#{survey.id}" %>" class="survey_is_public form-check-input" type="checkbox" data-id="<%= survey.id %>" <%= 'checked' if survey.is_public %>>
-            <label class="form-check-label" for="<%= "survey_is_public-#{survey.id}" %>">
-              <%= survey.is_public ? t('.is_public') : t('.is_private') %>
-            </label>
-          </div>
+    <div class="card my-5">
+      <div class="card-body">
+
+        <div class="form-check form-switch">
+          <input id="<%= "survey_is_public-#{survey.id}" %>" class="survey_is_public form-check-input" type="checkbox" data-id="<%= survey.id %>" <%= 'checked' if survey.is_public %>>
+          <label class="form-check-label" for="<%= "survey_is_public-#{survey.id}" %>">
+            <%= survey.is_public ? t('.is_public') : t('.is_private') %>
+          </label>
         </div>
+
+        <hr>
+
+        <h5 class="card-title"><%= survey.title %></h5>
+        <p class="card-text"><%= auto_link_description(survey) %></p>
+        <%= link_to t('.see_questions'), form_path(survey_token: survey.survey_token), class: 'card-link' %>
+        <%= link_to t('.see_responses'), survey_responses_path(survey_token: survey.survey_token), class: 'card-link' %>
+        <%= link_to t('.copy_url'), '#', class: 'card-link btn-copy-url', data: {url: form_url(survey_token: survey.survey_token)} %>
       </div>
     </div>
   <% end %>

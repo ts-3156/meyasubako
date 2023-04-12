@@ -1,8 +1,11 @@
 ---
 ja:
+  layouts:
+    application:
+      app_name: 'おたよりフォーム'
+      admin_menu: '管理者メニュー'
   home:
     index:
-      no_surveys: '募集中のおたよりフォームはありません。'
   sessions:
     new:
       email: 'メールアドレス'
@@ -13,15 +16,20 @@ ja:
   surveys:
     index:
       new: 'おたよりフォームを作る'
-      is_public: '募集中'
-      is_private: '停止中'
+      is_public: '回答を受付中'
+      is_private: '回答を受け付けていません'
       see_questions: '質問を見る'
-      see_results: '回答を見る'
+      see_responses: '回答を見る'
       copy_url: 'URLをコピー'
       copy_succeeded: 'コピーしました'
       copy_failed: 'コピーに失敗しました'
     new:
       new: 'おたよりフォームの新規作成'
+    responses:
+      n_days: '直近の %{days}日間 の最新 %{limit}件 を表示しています。'
+      download_html: '全データを一度に見るには <a href="%{url}">ダウンロード</a> してください。'
+      time: '時刻'
+      ip: 'IPアドレス'
     form:
       title: 'タイトル'
       title_placeholder: 'みとらじおたよりフォーム'
@@ -46,11 +54,12 @@ ja:
       is_public: '募集ステータス'
       is_public_true: '公開'
       is_public_false: '非公開'
+      is_public_note: '後から変更できます。'
+      questions_fixed: '注意1：質問文の数や内容を後から変更することはできません。'
+      one_question_required: '注意2：最低でも1つの質問を作る必要があります。1つめの質問文は入力必須です。'
       question:
         title: '質問%{count}'
         whats_your_name: 'みとらじネーム（読みにくい漢字はふりがなを記入）'
-        title_required_note: '1つめの質問は必ず入力してください。'
-        title_note: '不要な場合は空欄にしてください。'
         is_required_label: '必須'
         field_type_label: '複数行で回答'
       submit: '作成する'
@@ -58,15 +67,22 @@ ja:
     create:
       thanks: 'ご回答ありがとうございました。'
   forms:
+    index:
+      page_title: '募集中のおたよりフォーム'
+      answer: '回答する'
+      empty_surveys: '現在募集中のおたよりフォームはありません。'
     edit:
       submit: '回答する'
       expired: 'このおたよりフォームは終了しました。'
-      expired_note: 'このおたよりフォームは募集停止中です。このページを見られるのは管理者のみです。'
-    responses:
-      7days: '直近の %{days}日間 の最新 %{limit}件 を表示しています。'
-      download_html: '全データを一度に見るには <a href="%{url}">ダウンロード</a> してください。'
-      time: '時刻'
-      ip: 'IPアドレス'
+      back: '< おたよりフォーム一覧に戻る'
+  shared:
+    admin_menu_modal:
+      title: '管理者メニュー'
+      login_as: '%{value} としてログイン中'
+      list: 'おたよりフォームの一覧'
+      admin_required: '管理者限定'
+      for_guest: '一般ユーザー向け'
+      close: '閉じる'
   activerecord:
     errors:
       messages:

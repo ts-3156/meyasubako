@@ -1,0 +1,24 @@
+<div id="<%= modal_id %>" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><%= t('.title') %></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          <%= t('.login_as', value: current_user.email) %><br>
+          <br>
+          <%= link_to t('.list'), surveys_path %>
+          <span class="text-muted"><%= t('.admin_required') %></span><br>
+          <br>
+          <%= link_to t('.list'), forms_path %>
+          <span class="text-muted"><%= t('.for_guest') %></span>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"><%= t('.close') %></button>
+      </div>
+    </div>
+  </div>
+</div>

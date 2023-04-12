@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Meyasubako</title>
+    <title><%= t('.app_name') %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -17,11 +17,12 @@
   <body>
     <% if user_signed_in? %>
       <div class="container">
-        <div class="text-end my-3">
-          <%= current_user.email %>
+        <div class="text-end my-2">
+          <a href="#" data-bs-toggle="modal" data-bs-target="#admin-menu-modal"><%= t('.admin_menu') %></a>
         </div>
+        <%= render template: 'shared/admin_menu_modal', locals: {modal_id: 'admin-menu-modal'} %>
       </div>
-      <hr>
+      <hr class="mt-2">
     <% end %>
     <%= yield %>
   </body>

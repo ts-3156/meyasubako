@@ -18,9 +18,4 @@ class Survey < ApplicationRecord
       find_by(survey_token: token)
     end
   end
-
-  def description_html
-    # TODO Fix performance issue
-    description.gsub(/\r?\n/, '<br>').html_safe
-  end
 end

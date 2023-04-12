@@ -1,0 +1,32 @@
+<div class="container my-5">
+  <h1 class="h3 my-5"><%= @survey.title %></h1>
+
+  <div class="my-3">
+    <%= t('.n_days', days: @days, limit: @limit) %>
+    <%= t('.download_html', url: survey_download_path) %>
+  </div>
+
+  <div class="table-responses-wrapper my-5">
+    <table class="table-responses table table-bordered table-sm bg-white">
+      <tr>
+        <td></td>
+        <td class="text-nowrap"><%= t('.time') %></td>
+        <td class="text-nowrap"><%= t('.ip') %></td>
+        <% @survey.questions.each do |question| %>
+          <td class="text-nowrap fw-bold"><%= question.title %></td>
+        <% end %>
+      </tr>
+
+      <% @survey_responses.each.with_index do |survey_response, i| %>
+        <tr>
+          <td class="text-nowrap"><%= i + 1 %></td>
+          <td class="text-nowrap"><%= survey_response.created_at.to_fs(:db) %></td>
+          <td class="text-nowrap"><%= survey_response.ip %></td>
+          <% survey_response.answers.each do |answer| %>
+            <td><%= answer.message %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

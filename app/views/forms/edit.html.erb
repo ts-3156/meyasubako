@@ -5,14 +5,16 @@
     </div>
   <% end %>
 
-  <% unless @survey.is_public %>
-    <p class="text-danger my-5"><%= t('.expired_note') %></p>
-  <% end %>
+  <div class="my-3"><%= link_to t('.back'), forms_path %></div>
 
-  <h1 class="h3 my-5"><%= @survey.title %></h1>
-  <div class="card card-body my-3"><%= auto_link(@survey.description_html, link: :urls, html: {target: '_blank'}) %></div>
+  <div class="card my-5">
+    <div class="card-body">
+      <h5 class="card-title"><%= @survey.title %></h5>
+      <p class="card-text"><%= auto_link_description(@survey) %></p>
+    </div>
+  </div>
 
-  <%= form_tag survey_responses_path(survey_token: @survey.survey_token), method: :post do %>
+  <%= form_tag form_responses_path(survey_token: @survey.survey_token), method: :post do %>
     <% @survey.questions.each do |question| %>
       <div class="card card-body my-5">
         <label for="<%= "question-#{question.id}" %>" class="form-label">
