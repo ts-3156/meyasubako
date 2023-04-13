@@ -9,6 +9,12 @@
     <%= link_to t('.new'), new_survey_path, class: 'btn btn-primary' %>
   </div>
 
+  <div class="my-3">
+    <%= link_to t('.manage_denied_ip'), new_survey_path, class: 'btn btn-outline-danger', 'data-bs-toggle' => 'modal', 'data-bs-target' => '#manage-denied-ips-modal' %>
+  </div>
+
+  <%= render template: 'shared/manage_denied_ips_modal', locals: {modal_id: 'manage-denied-ips-modal'} %>
+
   <% @surveys.each do |survey| %>
     <div class="card my-5">
       <div class="card-body">

@@ -31,4 +31,5 @@ end
 gem "bcrypt"
 gem "jsbundling-rails", "~> 1.1"
 gem "ahoy_matey"
+gem "rack-user_agent"
 gem "rails_autolink"

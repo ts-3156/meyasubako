@@ -16,6 +16,7 @@ ja:
   surveys:
     index:
       new: 'おたよりフォームを作る'
+      manage_denied_ip: 'ブロックする条件の管理'
       is_public: '回答を受付中'
       is_private: '回答を受け付けていません'
       edit: '修正する'
@@ -46,6 +47,9 @@ ja:
       number: '番号'
       time: '時刻'
       ip: 'IPアドレス'
+      browser: 'ブラウザ'
+      os: 'OS'
+      device_type: 'デバイス'
     form:
       error: '作成に失敗しました。正しい値を入力してください。'
       title: 'タイトル'
@@ -110,6 +114,13 @@ ja:
       duration: '期間：直近の30日間'
       limit: '件数：%{value}件'
       download: 'ダウンロード'
+      close: '閉じる'
+    manage_denied_ips_modal:
+      title: 'ブロックする条件の管理'
+      cond_title: '条件%{value}'
+      cond1: '同じ「IPアドレス」から「10分間」以内に「同じ回答」があった場合は保存しない。'
+      cond2: '指定した「IPアドレス」からの回答は全て保存しない。'
+      note: 'ブロックするIPアドレスの指定は、実際の値が分かった後に行う必要があります。そのため、現時点ではブロックするIPアドレスの指定ができません。'
       close: '閉じる'
   activerecord:
     errors:

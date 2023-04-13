@@ -45,8 +45,11 @@
         <td><%= t('.number') %></td>
         <td><%= t('.time') %></td>
         <td><%= t('.ip') %></td>
+        <td><%= t('.browser') %></td>
+        <td><%= t('.os') %></td>
+        <td><%= t('.device_type') %></td>
         <% @survey.questions.each do |question| %>
-          <td class="fw-bold"><%= question.title %></td>
+          <td style="min-width: 150px;"><%= question.title %></td>
         <% end %>
       </tr>
       </thead>
@@ -76,7 +79,10 @@
       var columns = [
         {data: 'number'},
         {data: 'time'},
-        {data: 'ip'}
+        {data: 'ip'},
+        {data: 'browser'},
+        {data: 'os'},
+        {data: 'device_type'}
       ];
 
       questionIds.forEach(function (id) {
@@ -90,11 +96,8 @@
         },
         columns: columns,
         columnDefs: [
-          {targets: 0, className: 'number'},
-          {targets: 1, className: 'time'},
-          {targets: 2, className: 'ip'}
+          {targets: [0, 1, 2, 3, 4, 5], className: 'text-nowrap'},
         ],
-        scrollX: true,
         order: [[1, 'desc']],
         lengthChange: false,
         searching: false,

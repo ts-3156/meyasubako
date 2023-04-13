@@ -1,2 +1,0 @@
-class BlockedIp < ApplicationRecord
-end

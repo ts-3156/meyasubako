@@ -1,0 +1,24 @@
+<div id="<%= modal_id %>" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><%= t('.title') %></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          <%= t('.cond_title', value: 1) %>:<br>
+          <%= t('.cond1') %><br>
+          <br>
+          <%= t('.cond_title', value: 2) %>:<br>
+          <%= t('.cond2') %><br>
+          <br>
+          <span class="small text-muted"><%= t('.note') %></span>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"><%= t('.close') %></button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_06_125155) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_13_092145) do
   create_table "ahoy_events", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "visit_id"
     t.bigint "user_id"
@@ -62,12 +62,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_06_125155) do
     t.index ["survey_response_id"], name: "index_answers_on_survey_response_id"
   end
 
-  create_table "blocked_ips", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "denied_ips", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["created_at"], name: "index_blocked_ips_on_created_at"
-    t.index ["ip"], name: "index_blocked_ips_on_ip", unique: true
+    t.index ["created_at"], name: "index_denied_ips_on_created_at"
+    t.index ["ip"], name: "index_denied_ips_on_ip", unique: true
   end
 
   create_table "questions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -85,6 +85,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_06_125155) do
   create_table "survey_responses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "survey_id"
     t.string "ip"
+    t.string "browser"
+    t.string "os"
+    t.string "device_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["created_at"], name: "index_survey_responses_on_created_at"

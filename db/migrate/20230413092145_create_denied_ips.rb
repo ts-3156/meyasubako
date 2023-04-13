@@ -1,6 +1,6 @@
-class CreateBlockedIps < ActiveRecord::Migration[7.0]
+class CreateDeniedIps < ActiveRecord::Migration[7.0]
   def change
-    create_table :blocked_ips do |t|
+    create_table :denied_ips do |t|
       t.string :ip
       t.timestamps
 

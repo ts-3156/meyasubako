@@ -9,10 +9,13 @@ module SurveyResponsesHelper
           number: i + 1,
           time: survey_response.created_at.to_fs(:db),
           ip: survey_response.ip,
+          browser: survey_response.browser,
+          os: survey_response.os,
+          device_type: survey_response.device_type,
       }
 
       survey_response.answers.each do |answer|
-        row["question-#{answer.question_id}"] = answer.message
+        row["question-#{answer.question_id}"] = answer.message.gsub(/\r?\n/, '<br>')
       end
 
       row
@@ -22,10 +25,17 @@ module SurveyResponsesHelper
   def csv_data(survey)
     survey_responses = fetch_survey_responses(survey)
 
-    CSV.generate(headers: headers, write_headers: true, force_quotes: true) do |csv|
-      csv << ['Number', 'Time', 'IP', survey.questions.map(&:title)].flatten
-      survey_responses.reverse.each.with_index do |survey_response, i|
-        csv << [i + 1, survey_response.created_at.to_fs(:db), survey_response.ip, survey_response.answers.map(&:message)].flatten
+    CSV.generate(headers: true, write_headers: true, force_quotes: true, encoding: 'utf-8') do |csv|
+      csv << ['Number', 'Time', 'IP', 'Browser', 'OS', 'DeviceType', survey.questions.map(&:title)].flatten
+      survey_responses.each.with_index do |survey_response, i|
+        csv << [
+            i + 1, survey_response.created_at.to_fs(:db),
+            survey_response.ip,
+            survey_response.browser,
+            survey_response.os,
+            survey_response.device_type,
+            survey_response.answers.map(&:message)
+        ].flatten
       end
     end
   end
