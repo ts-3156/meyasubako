@@ -38,10 +38,9 @@ ja:
         7_days: '直近の7日間'
         30_days: '直近の30日間'
         limit: '件数'
-        limit_10: '10件'
-        limit_100: '100件'
-        limit_1000: '1000件'
-      download_html: '全データを一度に見るには <a href="%{url}">ダウンロード</a> してください。'
+        limit_n: '%{value}件'
+      download_html:
+        全データを一度に見るには <a href="#" data-bs-toggle="modal" data-bs-target="#%{modal_id}">ダウンロード</a> してください。
       number: '番号'
       time: '時刻'
       ip: 'IPアドレス'
@@ -101,6 +100,13 @@ ja:
       guest_link: '募集中のおたよりフォーム'
       admin_required: '管理者限定'
       for_guest: '一般ユーザー向け'
+      close: '閉じる'
+    download_responses_modal:
+      title: 'CSVのダウンロード'
+      message: 'この条件でダウンロードします。'
+      duration: '期間：直近の30日間'
+      limit: '件数：%{value}件'
+      download: 'ダウンロード'
       close: '閉じる'
   activerecord:
     errors:

@@ -1,6 +1,6 @@
-require 'csv'
-
 class SurveysController < ApplicationController
+  include SurveyResponsesHelper
+
   before_action :authenticate_user!
 
   def index
@@ -11,15 +11,12 @@ class SurveysController < ApplicationController
   end
 
   def responses
-    set_responses(7, 1000)
+    @survey = Survey.includes(:questions).find(params[:id])
   end
 
   def download
-    set_responses(30, 100000)
-    prefix = @survey.title.gsub(/[ 　]/, '_')
-    time = Time.zone.now.in_time_zone('Tokyo').strftime("%Y%m%d%H%M%S")
-    filename = "#{prefix}-#{time}.csv"
-    send_data generate_csv, filename: filename, type: 'text/csv; charset=utf-8'
+    survey = Survey.includes(:questions).find(params[:id])
+    send_data csv_data(survey), filename: survey.to_filename, type: 'text/csv; charset=utf-8'
   end
 
   def new
@@ -64,35 +61,6 @@ class SurveysController < ApplicationController
 
   private
 
-  def set_responses(days, limit)
-    @survey = Survey.includes(:questions).find(params[:id])
-    @days = days
-    @limit = limit
-    from_time = parse_time(params[:from_time]) || @days.days.ago
-    to_time = parse_time(params[:to_time]) || Time.zone.now
-    @survey_responses = SurveyResponse.includes(:answers).
-        where(survey_id: @survey.id).
-        where(created_at: from_time..to_time).
-        order(created_at: :desc).
-        limit(@limit)
-  end
-
-  def generate_csv
-    CSV.generate(headers: headers, write_headers: true, force_quotes: true) do |csv|
-      csv << ['', 'Time', 'IP', @survey.questions.map(&:title)].flatten
-      @survey_responses.reverse.each.with_index do |survey_response, i|
-        csv << [i + 1, survey_response.created_at.to_fs(:db), survey_response.ip, survey_response.answers.map(&:message)].flatten
-      end
-    end
-  end
-
-  def parse_time(value)
-    value.to_s.match?(/\A\d{4}-\d{2}-\d{2}\z/) ? Time.zone.parse(value) : nil
-  rescue => e
-    nil
-  end
-
-  # Only allow a list of trusted parameters through.
   def survey_params
     params.require(:survey).permit(:title, :description, :is_public)
   end

@@ -1,0 +1,22 @@
+<div id="<%= modal_id %>" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><%= t('.title') %></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          <%= t('.message') %><br>
+          <br>
+          <%= t('.duration') %><br>
+          <%= t('.limit', value: 100000.to_fs(:delimited)) %>
+        </p>
+        <%= link_to t('.download'), download_url, class: 'btn btn-primary' %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"><%= t('.close') %></button>
+      </div>
+    </div>
+  </div>
+</div>

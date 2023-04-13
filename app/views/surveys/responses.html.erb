@@ -2,8 +2,10 @@
   <h1 class="h3 my-5"><%= @survey.title %></h1>
 
   <div class="my-3">
-    <%= t('.download_html', url: survey_download_path(id: @survey.id)) %>
+    <%= t('.download_html', modal_id: 'download-responses-modal') %>
   </div>
+
+  <%= render template: 'shared/download_responses_modal', locals: {modal_id: 'download-responses-modal', download_url: survey_download_path(id: @survey.id, duration: '30_days', limit: 100000)} %>
 
   <div class="my-3">
     <div class="input-group">
@@ -28,16 +30,16 @@
       <div class="input-group my-3">
         <label class="input-group-text" for="inputGroupSelect02"><%= t('.search.limit') %></label>
         <select class="form-select" id="select-limit">
-          <option value="10"><%= t('.search.limit_10') %></option>
-          <option value="100" selected><%= t('.search.limit_100') %></option>
-          <option value="1000"><%= t('.search.limit_1000') %></option>
+          <option value="100" selected><%= t('.search.limit_n', value: 100) %></option>
+          <option value="1000"><%= t('.search.limit_n', value: 1000.to_fs(:delimited)) %></option>
+          <option value="10000"><%= t('.search.limit_n', value: 10000.to_fs(:delimited)) %></option>
         </select>
       </div>
     </div>
   </div>
 
   <div class="table-responses-wrapper my-5">
-    <table id="table-responses" class="table-responses table table-bordered table-sm bg-white">
+    <table class="table-responses bg-white">
       <thead>
       <tr>
         <td><%= t('.number') %></td>
@@ -82,7 +84,7 @@
       });
       console.log('columns', columns);
 
-      table = $('#table-responses').DataTable({
+      table = $('.table-responses').DataTable({
         ajax: function (data, callback, settings) {
           fetchData(callback);
         },

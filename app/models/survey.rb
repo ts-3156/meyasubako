@@ -20,4 +20,12 @@ class Survey < ApplicationRecord
       find_by(survey_token: token)
     end
   end
+
+  def to_filename
+    prefix = title.gsub(/[ 　]/, '_')
+    time = Time.zone.now.in_time_zone('Tokyo').strftime("%Y%m%d%H%M%S")
+    "#{prefix}-#{time}.csv"
+  rescue => e
+    'Results.csv'
+  end
 end
