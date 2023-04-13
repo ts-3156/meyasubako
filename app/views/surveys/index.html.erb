@@ -1,4 +1,10 @@
 <div class="container my-5">
+  <% if notice %>
+    <div class="alert alert-success my-5" role="alert">
+      <%= notice %>
+    </div>
+  <% end %>
+
   <div class="my-3">
     <%= link_to t('.new'), new_survey_path, class: 'btn btn-primary' %>
   </div>

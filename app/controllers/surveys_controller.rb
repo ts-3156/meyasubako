@@ -31,15 +31,28 @@ class SurveysController < ApplicationController
 
   def create
     @survey = Survey.new(survey_params)
-    params[:questions].select { |q| q[:title].present? }.each do |question|
-      field_type = question[:field_type] == 'multiple' ? 'text_area' : 'text'
-      @survey.questions.build(title: question[:title], field_type: field_type, is_required: question[:is_required])
+
+    questions =
+        params[:questions].select { |q| q[:title].present? }.map do |question|
+          field_type = question[:field_type] == 'multiple' ? 'text_area' : 'text'
+          Question.new(title: question[:title], field_type: field_type, is_required: question[:is_required])
+        end
+
+    error = nil
+
+    begin
+      Survey.transaction do
+        @survey.save!
+        @survey.questions = questions
+      end
+    rescue => e
+      error = e
     end
 
-    if @survey.save
-      redirect_to surveys_path
-    else
+    if error
       render :new, status: :unprocessable_entity
+    else
+      redirect_to surveys_path, notice: t('.create.saved')
     end
   end
 
@@ -47,10 +60,18 @@ class SurveysController < ApplicationController
     @survey = Survey.includes(:questions).find(params[:id])
     @survey.assign_attributes(survey_params)
 
-    if @survey.save
-      redirect_to edit_survey_path(id: @survey.id), notice: t('.update.saved')
-    else
+    error = nil
+
+    begin
+      @survey.save!
+    rescue => e
+      error = e
+    end
+
+    if error
       render :edit, status: :unprocessable_entity
+    else
+      redirect_to edit_survey_path(id: @survey.id), notice: t('.update.saved')
     end
   end
 

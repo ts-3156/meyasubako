@@ -28,6 +28,8 @@ ja:
       page_title: 'おたよりフォームの新規作成'
     edit:
       page_title: 'おたよりフォームの修正'
+    create:
+      saved: '新しいおたよりフォームを作成しました。'
     update:
       saved: '変更内容を保存しました。'
     responses:
@@ -45,6 +47,7 @@ ja:
       time: '時刻'
       ip: 'IPアドレス'
     form:
+      error: '作成に失敗しました。正しい値を入力してください。'
       title: 'タイトル'
       title_placeholder: 'みとらじおたよりフォーム'
       description: '説明'
