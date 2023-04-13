@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get "logout", to: "sessions#destroy"
 
   namespace :api, {format: "json"} do
-    post :surveys, to: "surveys#update"
+    post "surveys/:id", to: "surveys#update", as: :survey
+    get "survey_responses", to: "survey_responses#index"
   end
 end

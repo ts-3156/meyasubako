@@ -15,12 +15,13 @@ titles = ['What is your favorite food?', 'What is your favorite sport?', 'What i
     survey.questions.create!(field_type: 'text_area', is_required: false, title: 'What is this?', note: 'This is a note.')
   end
 
-  1200.times do |n|
+  3600.times do |n|
     SurveyResponse.transaction do
       survey_response = SurveyResponse.create(survey_id: survey.id, ip: '127.0.0.1', created_at: Time.zone.now - (1200 - n).minutes)
 
-      survey.questions.size.times do |i|
-        survey_response.answers.create(message: "The answer is #{i + 1}.")
+      survey.questions.each do |question|
+        message = "This answer is for res##{survey_response.id} and q##{question.id}."
+        survey_response.answers.create(question_id: question.id, message: message)
       end
     end
   end

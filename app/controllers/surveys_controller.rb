@@ -16,9 +16,10 @@ class SurveysController < ApplicationController
 
   def download
     set_responses(30, 100000)
-    data = generate_csv
-    filename = "results-#{(Time.zone.now.in_time_zone('Tokyo')).to_fs(:db)}.csv"
-    send_data data, filename: filename, type: 'text/csv; charset=utf-8'
+    prefix = @survey.title.gsub(/[ 　]/, '_')
+    time = Time.zone.now.in_time_zone('Tokyo').strftime("%Y%m%d%H%M%S")
+    filename = "#{prefix}-#{time}.csv"
+    send_data generate_csv, filename: filename, type: 'text/csv; charset=utf-8'
   end
 
   def new

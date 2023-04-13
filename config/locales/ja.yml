@@ -33,13 +33,16 @@ ja:
     responses:
       search:
         word: '検索'
+        word_note: '回答文を検索します。'
         duration: '期間'
         7_days: '直近の7日間'
         30_days: '直近の30日間'
         limit: '件数'
+        limit_10: '10件'
+        limit_100: '100件'
         limit_1000: '1000件'
-      page_description: 'Webページから一度に見れるのは %{limit}件 までです。'
       download_html: '全データを一度に見るには <a href="%{url}">ダウンロード</a> してください。'
+      number: '番号'
       time: '時刻'
       ip: 'IPアドレス'
     form:
@@ -85,7 +88,7 @@ ja:
       empty_surveys: '現在募集中のおたよりフォームはありません。'
     edit:
       submit: '回答する'
-      expired_note: 'このおたよりフォームは募集停止中です。このページは管理者のみ見ることができます。'
+      expired_note: 'このおたよりフォームは募集停止中です。現在は管理者のみ見ることができます。'
       back: '< おたよりフォーム一覧に戻る'
     expired:
       back: '< おたよりフォーム一覧に戻る'

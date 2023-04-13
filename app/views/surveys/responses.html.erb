@@ -2,19 +2,21 @@
   <h1 class="h3 my-5"><%= @survey.title %></h1>
 
   <div class="my-3">
-    <%= t('.page_description', limit: @limit) %>
     <%= t('.download_html', url: survey_download_path(id: @survey.id)) %>
   </div>
 
-  <div class="input-group my-3">
-    <span class="input-group-text" id="basic-addon1"><%= t('.search.word') %></span>
-    <input type="text" class="form-control">
+  <div class="my-3">
+    <div class="input-group">
+      <span class="input-group-text" id="basic-addon1"><%= t('.search.word') %></span>
+      <input type="text" class="form-control" id="search-word">
+    </div>
+    <div class="form-text"><%= t('.search.word_note') %></div>
   </div>
 
   <div class="d-inline-block">
     <div class="input-group my-3">
       <label class="input-group-text" for="inputGroupSelect01"><%= t('.search.duration') %></label>
-      <select class="form-select" id="inputGroupSelect01">
+      <select class="form-select" id="select-duration">
         <option value="7_days" selected><%= t('.search.7_days') %></option>
         <option value="30_days"><%= t('.search.30_days') %></option>
       </select>
@@ -25,34 +27,84 @@
     <div class="d-inline-block">
       <div class="input-group my-3">
         <label class="input-group-text" for="inputGroupSelect02"><%= t('.search.limit') %></label>
-        <select class="form-select" id="inputGroupSelect02">
-          <option value="7_days" selected><%= t('.search.limit_1000') %></option>
+        <select class="form-select" id="select-limit">
+          <option value="10"><%= t('.search.limit_10') %></option>
+          <option value="100" selected><%= t('.search.limit_100') %></option>
+          <option value="1000"><%= t('.search.limit_1000') %></option>
         </select>
       </div>
     </div>
   </div>
 
   <div class="table-responses-wrapper my-5">
-    <table class="table-responses table table-bordered table-sm bg-white">
+    <table id="table-responses" class="table-responses table table-bordered table-sm bg-white">
+      <thead>
       <tr>
-        <td></td>
-        <td class="text-nowrap"><%= t('.time') %></td>
-        <td class="text-nowrap"><%= t('.ip') %></td>
+        <td><%= t('.number') %></td>
+        <td><%= t('.time') %></td>
+        <td><%= t('.ip') %></td>
         <% @survey.questions.each do |question| %>
-          <td class="text-nowrap fw-bold"><%= question.title %></td>
+          <td class="fw-bold"><%= question.title %></td>
         <% end %>
       </tr>
-
-      <% @survey_responses.each.with_index do |survey_response, i| %>
-        <tr>
-          <td class="text-nowrap"><%= i + 1 %></td>
-          <td class="text-nowrap"><%= survey_response.created_at.to_fs(:db) %></td>
-          <td class="text-nowrap"><%= survey_response.ip %></td>
-          <% survey_response.answers.each do |answer| %>
-            <td><%= answer.message %></td>
-          <% end %>
-        </tr>
-      <% end %>
+      </thead>
     </table>
   </div>
 </div>
+
+<script>
+  $(function () {
+    var table;
+
+    function fetchData(callback) {
+      var url = '<%= api_survey_responses_path(id: @survey.id) %>';
+      url += '&q=' + $('#search-word').val();
+      url += '&duration=' + $('#select-duration').val();
+      url += '&limit=' + $('#select-limit').val();
+      console.log('url', url);
+
+      $.get(url).done(function (res) {
+        console.log('res', res);
+        callback(res);
+      });
+    }
+
+    function updateTable() {
+      var questionIds = <%= @survey.questions.map(&:id).to_json %>;
+      var columns = [
+        {data: 'number'},
+        {data: 'time'},
+        {data: 'ip'}
+      ];
+
+      questionIds.forEach(function (id) {
+        columns.push({data: 'question-' + id})
+      });
+      console.log('columns', columns);
+
+      table = $('#table-responses').DataTable({
+        ajax: function (data, callback, settings) {
+          fetchData(callback);
+        },
+        columns: columns,
+        columnDefs: [
+          {targets: 0, className: 'number'},
+          {targets: 1, className: 'time'},
+          {targets: 2, className: 'ip'}
+        ],
+        scrollX: true,
+        order: [[1, 'desc']],
+        lengthChange: false,
+        searching: false,
+        info: false,
+        paging: false
+      });
+    }
+
+    $('#search-word, #select-duration, #select-limit').on('change', function () {
+      table.ajax.reload();
+    });
+
+    updateTable();
+  });
+</script>
