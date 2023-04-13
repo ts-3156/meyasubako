@@ -7,6 +7,8 @@ class Survey < ApplicationRecord
   validates :title, presence: true
   validates :description, presence: true
 
+  DEFAULT_QUESTIONS = 10
+
   before_create do
     if survey_token.blank?
       self.survey_token = Digest::MD5.hexdigest(Time.zone.now.to_i.to_s)

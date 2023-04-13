@@ -2,14 +2,11 @@ require 'csv'
 
 class SurveysController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_survey, only: %i[ show edit update destroy ]
 
-  # GET /surveys
   def index
     @surveys = Survey.order(created_at: :desc).limit(300)
   end
 
-  # GET /surveys/1
   def show
   end
 
@@ -24,20 +21,21 @@ class SurveysController < ApplicationController
     send_data data, filename: filename, type: 'text/csv; charset=utf-8'
   end
 
-  # GET /surveys/new
   def new
     @survey = Survey.new(is_public: false)
+    Survey::DEFAULT_QUESTIONS.times { @survey.questions.build }
+    @survey.questions[0].is_required = true
   end
 
-  # GET /surveys/1/edit
   def edit
+    @survey = Survey.includes(:questions).find(params[:id])
   end
 
-  # POST /surveys
   def create
     @survey = Survey.new(survey_params)
     params[:questions].select { |q| q[:title].present? }.each do |question|
-      @survey.questions.build(title: question[:title], field_type: question[:field_type] == 'multiple' ? 'text_area' : 'text', is_required: question[:is_required])
+      field_type = question[:field_type] == 'multiple' ? 'text_area' : 'text'
+      @survey.questions.build(title: question[:title], field_type: field_type, is_required: question[:is_required])
     end
 
     if @survey.save
@@ -47,16 +45,17 @@ class SurveysController < ApplicationController
     end
   end
 
-  # PATCH/PUT /surveys/1
   def update
-    if @survey.update(survey_params)
-      redirect_to @survey, notice: "Survey was successfully updated."
+    @survey = Survey.includes(:questions).find(params[:id])
+    @survey.assign_attributes(survey_params)
+
+    if @survey.save
+      redirect_to edit_survey_path(id: @survey.id), notice: t('.update.saved')
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
-  # DELETE /surveys/1
   def destroy
     @survey.destroy
     redirect_to surveys_url, notice: "Survey was successfully destroyed."
@@ -65,7 +64,7 @@ class SurveysController < ApplicationController
   private
 
   def set_responses(days, limit)
-    @survey = Survey.includes(:questions).find_by_token(params[:survey_token])
+    @survey = Survey.includes(:questions).find(params[:id])
     @days = days
     @limit = limit
     from_time = parse_time(params[:from_time]) || @days.days.ago
@@ -90,11 +89,6 @@ class SurveysController < ApplicationController
     value.to_s.match?(/\A\d{4}-\d{2}-\d{2}\z/) ? Time.zone.parse(value) : nil
   rescue => e
     nil
-  end
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_survey
-    @survey = Survey.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.

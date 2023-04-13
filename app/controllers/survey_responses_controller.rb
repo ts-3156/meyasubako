@@ -8,8 +8,9 @@ class SurveyResponsesController < ApplicationController
     end
 
     survey_response = SurveyResponse.new(survey_id: survey.id, ip: request.ip)
-    params[:answers].each do |message|
-      survey_response.answers.build(message: ApplicationController.helpers.strip_tags(message))
+    params[:answers].each do |answer|
+      message = ApplicationController.helpers.strip_tags(answer[:message])
+      survey_response.answers.build(question_id: answer[:question_id], message: message)
     end
 
     if SurveyResponse.duplicate_record?(survey_response)

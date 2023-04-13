@@ -5,6 +5,10 @@
     </div>
   <% end %>
 
+  <% unless @survey.is_public %>
+    <p class="text-danger my-5"><%= t('.expired_note') %></p>
+  <% end %>
+
   <div class="my-3"><%= link_to t('.back'), forms_path %></div>
 
   <div class="card my-5">
@@ -24,13 +28,15 @@
           <% end %>
         </label>
         <% if question.field_type == 'text' %>
-          <%= text_field_tag 'answers[]', '', id: "question-#{question.id}", class: "form-control", required: question.is_required %>
+          <%= text_field_tag 'answers[][message]', '', id: "question-#{question.id}", class: "form-control", required: question.is_required %>
         <% else %>
-          <textarea id="<%= "question-#{question.id}" %>" name="answers[]" class="form-control" rows="10" <%= 'required' if question.is_required %>></textarea>
+          <textarea id="<%= "question-#{question.id}" %>" name="answers[][message]" class="form-control" rows="10" <%= 'required' if question.is_required %>></textarea>
         <% end %>
         <% if question.note %>
           <div class="form-text"><%= question.note %></div>
         <% end %>
+
+        <%= hidden_field_tag 'answers[][question_id]', question.id %>
       </div>
     <% end %>
 

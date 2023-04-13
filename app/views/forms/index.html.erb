@@ -8,7 +8,9 @@
         <div class="card-body">
           <h5 class="card-title"><%= survey.title %></h5>
           <p class="card-text"><%= auto_link_description(survey) %></p>
-          <%= link_to t('.answer'), form_path(survey_token: survey.survey_token), class: 'card-link' %>
+          <div class="text-center">
+            <%= link_to t('.answer'), form_path(survey_token: survey.survey_token), class: 'btn btn-primary' %>
+          </div>
         </div>
       </div>
     <% end %>

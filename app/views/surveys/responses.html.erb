@@ -2,8 +2,34 @@
   <h1 class="h3 my-5"><%= @survey.title %></h1>
 
   <div class="my-3">
-    <%= t('.n_days', days: @days, limit: @limit) %>
-    <%= t('.download_html', url: survey_download_path) %>
+    <%= t('.page_description', limit: @limit) %>
+    <%= t('.download_html', url: survey_download_path(id: @survey.id)) %>
+  </div>
+
+  <div class="input-group my-3">
+    <span class="input-group-text" id="basic-addon1"><%= t('.search.word') %></span>
+    <input type="text" class="form-control">
+  </div>
+
+  <div class="d-inline-block">
+    <div class="input-group my-3">
+      <label class="input-group-text" for="inputGroupSelect01"><%= t('.search.duration') %></label>
+      <select class="form-select" id="inputGroupSelect01">
+        <option value="7_days" selected><%= t('.search.7_days') %></option>
+        <option value="30_days"><%= t('.search.30_days') %></option>
+      </select>
+    </div>
+  </div>
+
+  <div>
+    <div class="d-inline-block">
+      <div class="input-group my-3">
+        <label class="input-group-text" for="inputGroupSelect02"><%= t('.search.limit') %></label>
+        <select class="form-select" id="inputGroupSelect02">
+          <option value="7_days" selected><%= t('.search.limit_1000') %></option>
+        </select>
+      </div>
+    </div>
   </div>
 
   <div class="table-responses-wrapper my-5">

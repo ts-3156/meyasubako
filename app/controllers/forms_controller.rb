@@ -7,7 +7,7 @@ class FormsController < ApplicationController
     @survey = Survey.includes(:questions).find_by_token(params[:survey_token])
 
     if !user_signed_in? && !@survey.is_public
-      render plain: t('.expired')
+      render 'expired'
     end
   end
 end

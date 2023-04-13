@@ -1,10 +1,10 @@
-<h1>Editing survey</h1>
+<div class="container my-5">
+  <% if notice %>
+    <div class="alert alert-success my-5" role="alert">
+      <%= notice %>
+    </div>
+  <% end %>
 
-<%= render "form", survey: @survey %>
-
-<br>
-
-<div>
-  <%= link_to "Show this survey", @survey %> |
-  <%= link_to "Back to surveys", surveys_path %>
+  <h3 class="my-3"><%= t('.page_title') %></h3>
+  <%= render "form", survey: @survey %>
 </div>

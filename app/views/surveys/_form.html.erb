@@ -13,12 +13,12 @@
 
   <div class="my-5">
     <label class="form-label"><%= t('.title') %> <span class="text-danger">*</span></label>
-    <%= form.text_field :title, class: 'form-control', value: t('.title_placeholder'), required: true %>
+    <%= form.text_field :title, class: 'form-control', value: survey.title || t('.title_placeholder'), required: true %>
   </div>
 
   <div class="my-5">
     <label class="form-label"><%= t('.description') %> <span class="text-danger">*</span></label>
-    <%= form.text_area :description, class: 'form-control', value: t('.description_placeholder'), rows: 20, required: true %>
+    <%= form.text_area :description, class: 'form-control', value: survey.description || t('.description_placeholder'), rows: 20, required: true %>
     <div class="form-text"><%= t('.description_note') %></div>
   </div>
 
@@ -37,31 +37,31 @@
     <%= t('.one_question_required') %>
   </div>
 
-  <% 10.times do |n| %>
+  <% survey.questions.each.with_index do |question, n| %>
     <div class="card card-body my-5">
       <div class="d-flex">
         <div class="text-nowrap me-3">
           <label class="col-form-label">
             <%= t('.question.title', count: n + 1) %>
-            <% if n == 0 %>
+            <% if question.is_required %>
               <span class="text-danger">*</span>
             <% end %>
           </label>
         </div>
         <div class="w-100">
-          <%= text_field_tag 'questions[][title]', (n == 0 ? t('.question.whats_your_name') : ''), class: 'form-control', required: n == 0 %>
+          <%= text_field_tag 'questions[][title]', (n == 0 ? t('.question.whats_your_name') : ''), class: 'form-control', required: question.is_required, disabled: action_name == 'edit' %>
         </div>
       </div>
 
       <div class="form-check mt-3">
-        <%= check_box_tag 'questions[][field_type]', 'multiple', false, {id: "question-#{n}_field_type", class: 'form-check-input'} %>
+        <%= check_box_tag 'questions[][field_type]', 'multiple', question.field_type == 'multiple', {id: "question-#{n}_field_type", class: 'form-check-input', disabled: action_name == 'edit'} %>
         <label class="form-check-label" for="<%= "question-#{n}_field_type" %>">
           <%= t('.question.field_type_label') %>
         </label>
       </div>
 
       <div class="form-check mt-3">
-        <%= check_box_tag 'questions[][is_required]', true, n == 0, {id: "question-#{n}_is_required", class: 'form-check-input'} %>
+        <%= check_box_tag 'questions[][is_required]', true, question.is_required, {id: "question-#{n}_is_required", class: 'form-check-input', disabled: action_name == 'edit'} %>
         <label class="form-check-label" for="<%= "question-#{n}_is_required" %>">
           <%= t('.question.is_required_label') %>
         </label>

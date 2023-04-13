@@ -18,9 +18,35 @@
 
         <h5 class="card-title"><%= survey.title %></h5>
         <p class="card-text"><%= auto_link_description(survey) %></p>
-        <%= link_to t('.see_questions'), form_path(survey_token: survey.survey_token), class: 'card-link' %>
-        <%= link_to t('.see_responses'), survey_responses_path(survey_token: survey.survey_token), class: 'card-link' %>
-        <%= link_to t('.copy_url'), '#', class: 'card-link btn-copy-url', data: {url: form_url(survey_token: survey.survey_token)} %>
+
+        <hr>
+
+        <div class="row">
+          <div class="col-6 col-md-3">
+            <%= link_to edit_survey_path(id: survey.id) do %>
+              <i class="fa-regular fa-pen-to-square"></i>
+              <%= t('.edit') %>
+            <% end %>
+          </div>
+          <div class="col-6 col-md-3">
+            <%= link_to form_path(survey_token: survey.survey_token) do %>
+              <i class="fa-regular fa-eye"></i>
+              <%= t('.preview', value: survey.questions.size) %>
+            <% end %>
+          </div>
+          <div class="col-6 col-md-3">
+            <%= link_to survey_responses_path(id: survey.id) do %>
+              <i class="fa-regular fa-envelope"></i>
+              <%= t('.responses', value: survey.survey_responses.size) %>
+            <% end %>
+          </div>
+          <div class="col-6 col-md-3">
+            <%= link_to '#', class: 'btn-copy-url', data: {url: form_url(survey_token: survey.survey_token)} do %>
+              <i class="fa-regular fa-copy"></i>
+              <%= t('.copy') %>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   <% end %>
