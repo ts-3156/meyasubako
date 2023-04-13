@@ -53,12 +53,10 @@
         </div>
       </div>
 
-      <div class="form-check mt-3">
-        <%= check_box_tag 'questions[][field_type]', 'multiple', question.field_type == 'multiple', {id: "question-#{n}_field_type", class: 'form-check-input', disabled: action_name == 'edit'} %>
-        <label class="form-check-label" for="<%= "question-#{n}_field_type" %>">
-          <%= t('.question.field_type_label') %>
-        </label>
-      </div>
+      <select class="form-select mt-3" name="questions[][field_type]" style="display: inline-block; width: 200px;" <%= 'disabled' if action_name == 'edit' %>>
+        <option value="text" <%= 'selected' if question.field_type == 'text' %>><%= t('.question.field_type_text') %></option>
+        <option value="text_area" <%= 'selected' if question.field_type == 'text_area' %>><%= t('.question.field_type_multiple') %></option>
+      </select>
 
       <div class="form-check mt-3">
         <%= check_box_tag 'questions[][is_required]', true, question.is_required, {id: "question-#{n}_is_required", class: 'form-check-input', disabled: action_name == 'edit'} %>

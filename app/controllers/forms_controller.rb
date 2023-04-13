@@ -6,6 +6,11 @@ class FormsController < ApplicationController
   def edit
     @survey = Survey.includes(:questions).find_by_token(params[:survey_token])
 
+    unless @survey
+      render 'not_found', status: :not_found
+      return
+    end
+
     if !user_signed_in? && !@survey.is_public
       render 'expired'
     end

@@ -5,6 +5,8 @@
     </div>
   <% end %>
 
+  <h1 class="h3 my-5"><%= t('.page_title') %></h1>
+
   <div class="my-3">
     <%= link_to t('.new'), new_survey_path, class: 'btn btn-primary' %>
   </div>
@@ -53,7 +55,7 @@
             <% end %>
           </div>
           <div class="col-6 col-md-3">
-            <%= link_to '#', class: 'btn-copy-url', data: {url: form_url(survey_token: survey.survey_token)} do %>
+            <%= link_to '#', class: 'btn-copy-url', data: {id: survey.id, url: form_url(survey_token: survey.survey_token)} do %>
               <i class="fa-regular fa-copy"></i>
               <%= t('.copy') %>
             <% end %>
@@ -91,11 +93,22 @@
       });
     });
 
-    $('.btn-copy-url').on('click', function () {
+    $('.btn-copy-url').on('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      var id = $(this).data('id');
       var url = $(this).data('url');
       var messages = {
         succeeded: '<%= t('.copy_succeeded') %>',
+        isNotPublic: '<%= t('.is_not_public') %>',
         failed: '<%= t('.copy_failed') %>'
+      }
+
+      var checked = $('input#survey_is_public-' + id).prop('checked');
+      if (!checked) {
+        alert(messages['isNotPublic']);
+        return false;
       }
 
       if (navigator.clipboard) {

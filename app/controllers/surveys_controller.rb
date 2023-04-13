@@ -33,9 +33,8 @@ class SurveysController < ApplicationController
     @survey = Survey.new(survey_params)
 
     questions =
-        params[:questions].select { |q| q[:title].present? }.map do |question|
-          field_type = question[:field_type] == 'multiple' ? 'text_area' : 'text'
-          Question.new(title: question[:title], field_type: field_type, is_required: question[:is_required])
+        params[:questions].select { |q| sanitize_question(q[:title]).present? }.map do |question|
+          Question.new(title: sanitize_question(question[:title]), field_type: parse_field_type(question[:field_type]), is_required: question[:is_required])
         end
 
     error = nil
@@ -46,6 +45,7 @@ class SurveysController < ApplicationController
         @survey.questions = questions
       end
     rescue => e
+      logger.warn e.inspect
       error = e
     end
 
@@ -65,6 +65,7 @@ class SurveysController < ApplicationController
     begin
       @survey.save!
     rescue => e
+      logger.warn e.inspect
       error = e
     end
 
@@ -81,6 +82,14 @@ class SurveysController < ApplicationController
   end
 
   private
+
+  def sanitize_question(text)
+    ApplicationController.helpers.strip_tags(text).chomp
+  end
+
+  def parse_field_type(value)
+    value == 'text_area' ? 'text_area' : 'text'
+  end
 
   def survey_params
     params.require(:survey).permit(:title, :description, :is_public)

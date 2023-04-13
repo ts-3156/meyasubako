@@ -16,8 +16,9 @@ ja:
       locked: '短時間に複数回ログインに失敗したため、アカウントがロックされました。数分後に再度お試しください。'
   surveys:
     index:
+      page_title: 'おたよりフォームの管理'
       new: 'おたよりフォームを作る'
-      manage_denied_ip: 'ブロックする条件の管理'
+      manage_denied_ip: 'ブロックする条件の変更'
       is_public: '回答を受付中'
       is_private: '回答を受け付けていません'
       edit: '修正する'
@@ -25,7 +26,8 @@ ja:
       responses: '集まった回答(%{value})'
       copy: 'URLをコピー'
       copy_succeeded: 'コピーしました'
-      copy_failed: 'コピーに失敗しました'
+      is_not_public: 'コピーに失敗しました。URLをコピーできるのは「回答を受付中」のおたよりフォームのみです。'
+      copy_failed: 'コピーに失敗しました。ブラウザのURLから直接コピーしてください'
     new:
       page_title: 'おたよりフォームの新規作成'
     edit:
@@ -78,12 +80,13 @@ ja:
       is_public_false: '非公開'
       is_public_note: '後から変更できます。'
       questions_fixed: '注意1：質問文の数や内容を後から変更することはできません。'
-      one_question_required: '注意2：最低でも1つの質問を作る必要があります。そのため、1つ目の質問文は入力必須です。'
+      one_question_required: '注意2：少なくとも1つの質問を作る必要があります。'
       question:
         title: '質問%{count}'
         whats_your_name: 'みとらじネーム（読みにくい漢字はふりがなを記入）'
-        is_required_label: '必須'
-        field_type_label: '複数行で回答'
+        is_required_label: '回答必須'
+        field_type_text: '1行で回答'
+        field_type_multiple: '複数行で回答'
       submit: '作成する'
   survey_responses:
     create:
@@ -100,6 +103,9 @@ ja:
     expired:
       back: '< おたよりフォーム一覧に戻る'
       message: 'このおたよりフォームは回答の受け付けを終了しました。'
+    not_found:
+      back: '< おたよりフォーム一覧に戻る'
+      message: '指定されたおたよりフォームは見つかりませんでした。'
   shared:
     admin_menu_modal:
       title: '管理者メニュー'
@@ -118,7 +124,7 @@ ja:
       download: 'ダウンロード'
       close: '閉じる'
     manage_denied_ips_modal:
-      title: 'ブロックする条件の管理'
+      title: 'ブロックする条件の変更'
       cond_title: '条件%{value}'
       cond1: '同じ「IPアドレス」から「10分間」以内に「同じ回答」があった場合は保存しない。'
       cond2: '指定した「IPアドレス」からの回答は全て保存しない。'
