@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_13_092145) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_13_122939) do
+  create_table "access_logs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "controller"
+    t.string "action"
+    t.string "method"
+    t.string "path"
+    t.text "params"
+    t.integer "status"
+    t.string "ip"
+    t.string "browser"
+    t.string "os"
+    t.string "device_type"
+    t.text "user_agent"
+    t.text "referer"
+    t.datetime "time"
+    t.index ["time"], name: "index_access_logs_on_time"
+  end
+
   create_table "ahoy_events", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "visit_id"
     t.bigint "user_id"

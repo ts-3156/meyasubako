@@ -1,4 +1,8 @@
 class ApplicationController < ActionController::Base
+  include LoggingHelper
+
+  after_action :create_access_log
+
   private
 
   helper_method :user_signed_in?, :current_user
