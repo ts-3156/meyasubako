@@ -12,7 +12,8 @@ ja:
       password: 'パスワード'
       submit: 'ログイン'
     create:
-      failed: 'ログインに失敗しました。'
+      failed: 'ログインに失敗しました。(%{value})'
+      locked: '短時間に複数回ログインに失敗したため、アカウントがロックされました。数分後に再度お試しください。'
   surveys:
     index:
       new: 'おたよりフォームを作る'
@@ -107,6 +108,7 @@ ja:
       guest_link: '募集中のおたよりフォーム'
       admin_required: '管理者限定'
       for_guest: '一般ユーザー向け'
+      logout: 'ログアウト'
       close: '閉じる'
     download_responses_modal:
       title: 'CSVのダウンロード'
