@@ -8,11 +8,11 @@ ja:
     index:
   sessions:
     new:
-      page_title: 'おたよりフォーム'
       form_title: 'アカウントにログイン'
       email: 'メールアドレス'
       password: 'パスワード'
       submit: 'ログイン'
+      note_html: 'このページは管理者専用です。一般の方は <a href="%{url}">募集中のおたよりフォーム</a> をご覧になってください。'
     create:
       failed: 'メールまたはパスワードが正しくありません。(%{value})'
       locked: '短時間に複数回ログインに失敗したため、アカウントがロックされました。数分後に再度お試しください。'
@@ -111,12 +111,12 @@ ja:
   shared:
     admin_menu_modal:
       title: '管理者メニュー'
-      login_as: '%{value} としてログイン中'
+      login_as: 'ログイン中：%{value}'
       admin_link: 'おたよりフォームの管理'
       guest_link: '募集中のおたよりフォーム'
       admin_required: '管理者限定'
       for_guest: '一般ユーザー向け'
-      logout: 'ログアウト'
+      logout: 'ログアウトする'
       close: '閉じる'
     download_responses_modal:
       title: 'CSVのダウンロード'

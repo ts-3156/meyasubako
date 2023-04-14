@@ -13,3 +13,7 @@ body {
 a {
     text-decoration: none;
 }
+
+.rounded-1rem {
+    border-radius: 1rem;
+}

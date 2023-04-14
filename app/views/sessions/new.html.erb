@@ -2,13 +2,12 @@
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-        <h1 class="h3 my-5"><%= t('.page_title') %></h1>
 
-        <div class="card shadow" style="border-radius: 1rem;">
+        <div class="card shadow rounded-1rem">
           <div class="card-body px-3 py-3 text-center">
 
             <div class="d-flex justify-content-start my-5">
-              <h3 class="text-muted"><%= t('.form_title') %></h3>
+              <h2 class="h4 text-muted"><%= t('.form_title') %></h2>
             </div>
 
             <%= form_tag sessions_path, method: :post do %>
@@ -29,6 +28,8 @@
 
           </div>
         </div>
+
+        <p class="my-5"><%= t('.note_html', url: forms_path) %></p>
       </div>
     </div>
   </div>

@@ -11,7 +11,7 @@
 
   <div class="my-3"><%= link_to t('.back'), forms_path %></div>
 
-  <div class="card my-5">
+  <div class="card rounded-1rem my-5">
     <div class="card-body">
       <h5 class="card-title"><%= @survey.title %></h5>
       <p class="card-text"><%= auto_link_description(@survey) %></p>
@@ -22,7 +22,7 @@
     <% @survey.questions.each do |question| %>
       <% question_id = "question-#{question.id}" %>
 
-      <div class="card card-body my-5">
+      <div class="card card-body rounded-1rem my-5">
         <label for="<%= question_id %>" class="form-label">
           <%= question.title %>
           <% if question.is_required %>

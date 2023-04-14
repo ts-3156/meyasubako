@@ -3,7 +3,7 @@
 
   <% if @surveys.any? %>
     <% @surveys.each do |survey| %>
-      <div class="card my-5">
+      <div class="card rounded-1rem my-5">
         <div class="card-body">
           <h5 class="card-title"><%= survey.title %></h5>
           <p class="card-text"><%= auto_link_description(survey) %></p>
