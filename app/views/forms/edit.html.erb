@@ -20,18 +20,16 @@
 
   <%= form_tag form_responses_path(survey_token: @survey.survey_token), method: :post do %>
     <% @survey.questions.each do |question| %>
+      <% question_id = "question-#{question.id}" %>
+
       <div class="card card-body my-5">
-        <label for="<%= "question-#{question.id}" %>" class="form-label">
+        <label for="<%= question_id %>" class="form-label">
           <%= question.title %>
           <% if question.is_required %>
             <span class="text-danger">*</span>
           <% end %>
         </label>
-        <% if question.field_type == 'text' %>
-          <%= text_field_tag 'answers[][message]', '', id: "question-#{question.id}", class: "form-control", required: question.is_required %>
-        <% else %>
-          <textarea id="<%= "question-#{question.id}" %>" name="answers[][message]" class="form-control" rows="10" <%= 'required' if question.is_required %>></textarea>
-        <% end %>
+        <%= question_field_tag(question.field_type, 'answers[][message]', id: question_id, _class: 'form-control', required: question.is_required) %>
         <% if question.note %>
           <div class="form-text"><%= question.note %></div>
         <% end %>
