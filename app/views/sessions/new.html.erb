@@ -1,19 +1,35 @@
-<div class="container my-5">
-  <% if alert %>
-    <p class="text-danger my-5"><%= alert %></p>
-  <% end %>
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <h1 class="h3 my-5"><%= t('.page_title') %></h1>
 
-  <div style="max-width: 300px;">
-    <%= form_tag sessions_path, method: :post do %>
-      <div class="mb-3">
-        <label for="email" class="form-label"><%= t('.email') %></label>
-        <input type="email" name="email" class="form-control" required>
+        <div class="card shadow" style="border-radius: 1rem;">
+          <div class="card-body px-3 py-3 text-center">
+
+            <div class="d-flex justify-content-start my-5">
+              <h3 class="text-muted"><%= t('.form_title') %></h3>
+            </div>
+
+            <%= form_tag sessions_path, method: :post do %>
+              <div class="form-floating mb-5">
+                <input type="email" name="email" class="form-control" placeholder="name@example.com" required>
+                <label for="email" class="form-label"><%= t('.email') %></label>
+              </div>
+
+              <div class="form-floating mb-5">
+                <input type="password" name="password" class="form-control" placeholder="Password" required>
+                <label for="password" class="form-label"><%= t('.password') %></label>
+              </div>
+
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary"><%= t('.submit') %></button>
+              </div>
+            <% end %>
+
+          </div>
+        </div>
       </div>
-      <div class="mb-3">
-        <label for="password" class="form-label"><%= t('.password') %></label>
-        <input type="password" name="password" class="form-control" required>
-      </div>
-      <button type="submit" class="btn btn-primary"><%= t('.submit') %></button>
-    <% end %>
+    </div>
   </div>
-</div>
+</section>

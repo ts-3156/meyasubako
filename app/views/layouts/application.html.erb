@@ -19,7 +19,7 @@
   </head>
 
   <body>
-    <% if user_signed_in? %>
+    <% if !login_page? && user_signed_in? %>
       <div class="container">
         <div class="text-end my-2">
           <a href="#" data-bs-toggle="modal" data-bs-target="#admin-menu-modal"><%= t('.admin_menu') %></a>

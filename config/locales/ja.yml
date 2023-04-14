@@ -8,11 +8,13 @@ ja:
     index:
   sessions:
     new:
+      page_title: 'おたよりフォーム'
+      form_title: 'アカウントにログイン'
       email: 'メールアドレス'
       password: 'パスワード'
       submit: 'ログイン'
     create:
-      failed: 'ログインに失敗しました。(%{value})'
+      failed: 'メールまたはパスワードが正しくありません。(%{value})'
       locked: '短時間に複数回ログインに失敗したため、アカウントがロックされました。数分後に再度お試しください。'
   surveys:
     index:
