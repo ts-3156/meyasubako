@@ -52,7 +52,8 @@ module SurveyResponsesHelper
         limit(limit)
 
     if query.present?
-      survey_responses = survey_responses.search_answers(query)
+      ids = survey_responses.search_answers(query).pluck(:id)
+      survey_responses = survey_responses.where(id: ids)
     end
 
     survey_responses

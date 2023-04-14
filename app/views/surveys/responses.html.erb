@@ -1,4 +1,6 @@
 <div class="container my-5">
+  <div class="my-3"><%= link_to t('.back'), surveys_path %></div>
+
   <h1 class="h3 my-5"><%= @survey.title %></h1>
 
   <div class="my-3">
@@ -38,6 +40,8 @@
     </div>
   </div>
 
+  <div id="error-message" class="text-danger my-5" style="display: none;"></div>
+
   <div class="table-responses-wrapper my-5">
     <table class="table-responses bg-white">
       <thead>
@@ -60,17 +64,25 @@
 <script>
   $(function () {
     var table;
+    var messages = {
+      fetchingFailed: '<%= t('.fetching_failed') %>'
+    }
 
     function fetchData(callback) {
       var url = '<%= api_survey_responses_path(id: @survey.id) %>';
-      url += '&q=' + $('#search-word').val();
+      url += '&q=' + encodeURIComponent($('#search-word').val());
       url += '&duration=' + $('#select-duration').val();
       url += '&limit=' + $('#select-limit').val();
       console.log('url', url);
 
       $.get(url).done(function (res) {
         console.log('res', res);
+        $('#error-message').empty().hide();
         callback(res);
+      }).fail(function (xhr) {
+        console.error(xhr);
+        $('#error-message').empty().text(messages['fetchingFailed']).show();
+        callback({data: []})
       });
     }
 

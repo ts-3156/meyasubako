@@ -31,17 +31,20 @@ ja:
       is_not_public: 'コピーに失敗しました。URLをコピーできるのは「回答を受付中」のおたよりフォームのみです。'
       copy_failed: 'コピーに失敗しました。ブラウザのURLから直接コピーしてください'
     new:
+      back: '< おたよりフォームの管理へ戻る'
       page_title: 'おたよりフォームの新規作成'
     edit:
+      back: '< おたよりフォームの管理へ戻る'
       page_title: 'おたよりフォームの修正'
     create:
       saved: '新しいおたよりフォームを作成しました。'
     update:
       saved: '変更内容を保存しました。'
     responses:
+      back: '< おたよりフォームの管理へ戻る'
       search:
         word: '検索'
-        word_note: '回答文を検索します。'
+        word_note: '回答の文章を検索します。一部の記号は検索できません。'
         duration: '期間'
         7_days: '直近の7日間'
         30_days: '直近の30日間'
@@ -49,12 +52,13 @@ ja:
         limit_n: '%{value}件'
       download_html:
         全データを一度に見るには <a href="#" data-bs-toggle="modal" data-bs-target="#%{modal_id}">ダウンロード</a> してください。
-      number: '番号'
+      number: '順番'
       time: '時刻'
       ip: 'IPアドレス'
       browser: 'ブラウザ'
       os: 'OS'
       device_type: 'デバイス'
+      fetching_failed: 'データの取得に失敗しました。検索条件を変えて再度お試しください。'
     form:
       error: '作成に失敗しました。正しい値を入力してください。'
       title: 'タイトル'
@@ -114,8 +118,8 @@ ja:
       login_as: 'ログイン中：%{value}'
       admin_link: 'おたよりフォームの管理'
       guest_link: '募集中のおたよりフォーム'
-      admin_required: '管理者限定'
-      for_guest: '一般ユーザー向け'
+      admin_required: '管理者のみ'
+      for_guest: '一般の方向け'
       logout: 'ログアウトする'
       close: '閉じる'
     download_responses_modal:
@@ -130,8 +134,13 @@ ja:
       cond_title: '条件%{value}'
       cond1: '同じ「IPアドレス」から「10分間」以内に「同じ回答」があった場合は保存しない。'
       cond2: '指定した「IPアドレス」からの回答は全て保存しない。'
-      note: 'ブロックするIPアドレスの指定は、実際の値が分かった後に行う必要があります。そのため、現時点ではブロックするIPアドレスの指定ができません。'
+      note: '現時点ではブロックするIPアドレスの指定ができません。実際に投稿されるまでブロック対象のIPアドレスが分からないためです。'
       close: '閉じる'
+  seed:
+    titles:
+      - 'あなたの好きな本は何ですか？'
+      - 'あなたの好きなスポーツは何ですか？'
+      - 'あなたの好きな本は何ですか？'
   activerecord:
     errors:
       messages:

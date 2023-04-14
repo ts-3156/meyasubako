@@ -25,7 +25,7 @@
 /config/master.key
 
 /.idea
-/login.txt
+/admin.txt
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
