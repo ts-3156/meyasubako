@@ -41,8 +41,8 @@ gem update bundler
 # EOS
 # grep 'Max open files' /proc/[PID]/limits
 
-echo "net.ipv4.tcp_max_syn_backlog = 512" >>/etc/sysctl.conf
-echo "net.core.somaxconn = 512" >>/etc/sysctl.conf
+echo "net.ipv4.tcp_max_syn_backlog = 1024" >>/etc/sysctl.conf
+echo "net.core.somaxconn = 1024" >>/etc/sysctl.conf
 echo "vm.overcommit_memory = 1" >>/etc/sysctl.conf
 sysctl -p
 
