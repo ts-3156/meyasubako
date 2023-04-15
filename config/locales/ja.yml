@@ -96,6 +96,7 @@ ja:
       submit: '作成する'
   survey_responses:
     create:
+      invalid_survey_token: '指定されたおたよりフォームは存在しないか回答の受け付けを終了しています。'
       thanks: 'ご回答ありがとうございました。'
   forms:
     index:
