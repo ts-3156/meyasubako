@@ -6,19 +6,16 @@ File.write('admin.txt', email + "\n" + password)
 User.create!(email: email, password: password)
 
 titles = I18n.t('seed.titles')
+descriptions = I18n.t('seed.descriptions')
 
-titles.each.with_index do |title, title_i|
-  survey = Survey.create!(is_public: title_i == 1, title: title, description: "This is a description.\nVisit https://example.com")
+3.times do |survey_i|
+  survey = Survey.create!(is_public: survey_i == 1, title: titles[survey_i], description: descriptions[survey_i])
 
-  survey.questions.create!(field_type: 'text', is_required: true, title: 'What is your name?', note: 'This is a note.')
-  survey.questions.create!(field_type: 'text', is_required: true, title: 'What is this?', note: 'This is a note.')
-  survey.questions.create!(field_type: 'text', is_required: false, title: 'What is this?', note: 'This is a note.')
-  survey.questions.create!(field_type: 'text_area', is_required: true, title: 'What is this?', note: 'This is a note.')
-  survey.questions.create!(field_type: 'text_area', is_required: true, title: 'What is this?', note: 'This is a note.')
-  survey.questions.create!(field_type: 'text_area', is_required: false, title: 'What is this?', note: 'This is a note.')
-  survey.questions.create!(field_type: 'text_area', is_required: false, title: 'What is this?', note: 'This is a note.')
+  survey.questions.create!(field_type: 'text', is_required: true, title: I18n.t('seed.questions')[0], note: 'This is a note.')
+  survey.questions.create!(field_type: 'text_area', is_required: false, title: I18n.t('seed.questions')[1], note: 'This is a note.')
+  survey.questions.create!(field_type: 'text_area', is_required: false, title: I18n.t('seed.questions')[2], note: 'This is a note.')
 
-  responses_count = 3600
+  responses_count = 2400
 
   responses_count.times do |n|
     survey_response = SurveyResponse.create!(survey_id: survey.id, ip: '127.0.0.1', browser: 'Chrome', os: 'Mac', device_type: 'smartphone', created_at: Time.zone.now - (responses_count - n).seconds)

@@ -30,7 +30,8 @@
 
         <hr>
 
-        <h5 class="card-title"><%= survey.title %></h5>
+        <div class="small text-muted mb-3"><%= t('.created') %><%= survey.created_at.in_time_zone('Tokyo').strftime("%Y-%m-%d %H:%M") %></div>
+        <h5 class="card-title mb-3"><%= survey.title %></h5>
         <p class="card-text"><%= auto_link_description(survey) %></p>
 
         <hr>
